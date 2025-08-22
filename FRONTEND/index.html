@@ -1,53 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS implementation -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Pure CSS implementation -->
+        <link rel="stylesheet" href="./assets/css/login/login.css">
+        <!-- Pure JS implementation -->
+        <script src="..." defer> </script>
+        <!-- Icon Page -->
+        <link rel="icon" href="..." type="image/x-icon">
+        <!-- Title Page -->
+        <title> CleanR | Inicio de Sesión </title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap CSS implementation -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Pure CSS implementation -->
-    <link rel="stylesheet" href="./assets/css/login/login.css">
-    <!-- Pure JS implementation -->
-    <script src="./src/js/index.js" defer> </script>
-    <!-- Title Page -->
-    <title> CleanR | Inicio de Sesión </title>
-</head>
+    <body>
+        
+        <main class="d-flex justify-content-center align-items-center vh-100 bg-light">
 
-<body>
-
-    <main class="d-flex flex-column justify-content-center align-items-center">
-        <div class="logo-container">
-            <div>
+            <!-- Log Page -->
+            <div class="log">
                 <img src="./assets/img/login/logo_login.png" alt="Logo_CleanR">
             </div>
 
-        </div>
-        <form id="loginForm">
-            <h2 class="text-center fw-semibold mb-4"> ¡Bienvenido a <span>CleanR!</span> </h2>
-            <!-- Email Input -->
-            <div class="mb-3">
-                <label for="email" class="form-label"> Correo: </label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo...">
+            <div class="card shadow-lg p-4 rounded-4">
+                <div class="card-body">
+                    <!-- Card Title -->
+                    <h2 class="text-center fw-semibold mb-4"> ¡Bienvenido a CleanR! </h2>
+
+                    <form id="loginForm">
+                        <!-- Email Input -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label"> Correo:  </label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Ingrese su correo...">
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label"> Contraseña: </label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Ingrese su contraseña...">
+                        </div>
+
+                        <!-- Login Button -->
+                        <button type="submit" class="btn w-100"> Ingresar </button>
+                    </form>
+
+                </div>
             </div>
+        </main>
 
-            <!-- Password Input -->
-            <div class="mb-3">
-                <label for="password" class="form-label"> Contraseña: </label>
-                <input type="password" class="form-control" id="password" name="password"
-                    placeholder="Ingrese su contraseña...">
-            </div>
-
-            <!-- Login Button -->
-            <button type="submit" class="btn"> Ingresar </button>
-        </form>
-
-    </main>
-
-    <!-- Bootstrap JS implementation -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
-
+        <!-- Bootstrap JS implementation -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </body>
 </html>
