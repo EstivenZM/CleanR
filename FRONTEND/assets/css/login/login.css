@@ -1,50 +1,112 @@
-*{
-    padding: 0;
-    margin: 0;
+/* Google font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+
+main {
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
-    background-color: rgb(27, 31, 34)
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Fondo de la pagina. / Bottom of the page. */
+
+.d-flex {
+    background-color: #1B1F22 !important;
 }
 
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Logo de la pagina. / Log page. */
 
-main{
-    width: 100%;
-    height: 100vh;
+.log {
+    position: absolute;
+    top: 0;
+    left: 1;
+    padding: 1px;
+    margin-top: 7%
 }
-
-.logo-container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.logo-container div{
-    width: 200px;
-    height: 200px;
-}
-
-.logo-container img{
-    width: 100%;
-    height: 100%;
+.log img {
     object-fit: cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 5%; 
 }
 
-span{
-    color: #5b13ea;
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Titulos y subtitulos. / Titles and subtitles. */
+
+h2, 
+label {
+    color: #ffffff !important;
 }
 
-form{
-    box-shadow: 0px 5px 0px 0px #5b13ea;
-    border-radius: 5px;
-    border: 1px solid #5b13ea;
-    background-color: white;
-    padding: 50px 20px ;
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Carta del formulario. / Card from. */
+
+.card {
+    background-color: #1B1F22 !important;
+    border: solid 5px #8244ff !important;
+    width: 22rem !important; 
+    border-top: 5px solid #5b13ea !important;
 }
 
-.btn{
-    width: 100%;
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* INPUTS */
+
+input {
+    cursor: pointer;
+    background-color: #1B1F22 !important;
+    color: #5b13ea !important;
+    opacity: 2; 
+    outline: none !important;
+}
+::placeholder {
+    color: #ffffff !important;
+    font-style: italic;
+}
+input[type="email"]:focus,
+input[type = "password"]:focus {
+    border: solid 2px #8244ff !important;
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Botón de inicio de sesión. / Sign In Button. */
+
+.btn {
     background-color: #5b13ea;
     color: white;
-    margin-top: 10px;
+}
+.btn:hover {
+    background-color: #8244ff;
+}
+
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+
+/* Animación de entrada. / Entrance animation. */
+.card {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.log img {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Animación de entrada. / Entrance animation. */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 576px) {
+    .log {
+        margin-top: 0%;
+    }
+
+    .card {
+        margin-top: 10%;
+        width: 22rem !important; 
+        border-top: 5px solid #5b13ea !important;
+    }
 }
