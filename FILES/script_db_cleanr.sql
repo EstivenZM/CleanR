@@ -6,7 +6,7 @@ id int auto_increment primary key,
 name varchar(200),
 email varchar(200) unique,
 password varchar(200),
-rol enum("tutor", "admin", "employee")
+rol enum("tutor", "administrator", "employee")
 );		
 insert into users(name) values("Sin usuario");
 
