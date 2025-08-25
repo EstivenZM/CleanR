@@ -67,6 +67,7 @@ footer{
     border-radius: 0;
     background-color: #5200c9;
     border: none;
+    background-color: #1B1F22;
   }
 
   #mainNavbar .btn-nav:hover {
@@ -77,8 +78,8 @@ footer{
 /*--------------------------------------*/
 
 main .container{
-  background-color: white;
-  border-radius: 10px;
+  background-color: #1B1F22;
+  color: white;
 }
 
 .button-viewtask{
@@ -89,4 +90,3 @@ main .container{
 .button-viewtask:hover{
   border: 1px solid #6f00ff;
 }
-
