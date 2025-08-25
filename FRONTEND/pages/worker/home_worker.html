@@ -1,21 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/worker/home_worker.css">
 </head>
-<body>
-    <header>
-        <nav>
-            
-        </nav>
-    </header>
-    <main>
 
+<body>
+    <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
+        <div class="log">
+            <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
+        </div>
+
+        <div id="navbarContainerHeader">
+            <nav id="mainNavbar" class="navbar">
+                <div class="container d-flex justify-content-around">
+                    <button id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Ver
+                        alertas </button>
+                    <button id="btnAlert" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Alertar
+                    </button>
+                    <button id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Verificar
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="btn-logOut">
+            <button id="btnLogOut" class="btn btn-dark btn-sm rounded-pill" type="submit"> Cerrar sesión </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="container mt-5 p-5">
+            <div class="welcome-user">
+                <h1>Bienvenid@</h1>
+                <h2 id="nameUser">Sofía Giraldo</h2>
+                <hr>
+            </div>
+            <div class="taskUser">
+                <h3>Actualemente tienes <span id="numberTask"></span> de tareas pendientes</h3>
+                <div class="container-button mt-3">
+                    <button class="btn button-addtask" id="addTask">Agregar tareas</button>
+                </div>
+            </div>
+        </div>
     </main>
-    <footer>
+    <footer id="footer" class="bg-purple py-3 rounded-top-4">
 
     </footer>
+    <script src="../../assets/js/worker/home_worker.js"></script>
 </body>
+
 </html>

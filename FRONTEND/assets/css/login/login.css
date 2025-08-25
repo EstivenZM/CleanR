@@ -19,9 +19,9 @@ main {
 .log {
     position: absolute;
     top: 0;
-    left: 1;
+    left: -1;
     padding: 1px;
-    margin-top: 7%
+    margin-top: 2.%
 }
 .log img {
     object-fit: cover;
@@ -90,13 +90,13 @@ input[type = "password"]:focus {
     animation: fadeIn 0.8s ease-in-out;
 }
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Animación de entrada. / Entrance animation. */
-
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Ajuste visual para celulares. / Responsive for cell phones. */
 
 @media (max-width: 576px) {
     .log {
@@ -107,5 +107,76 @@ input[type = "password"]:focus {
         margin-top: 10%;
         width: 22rem !important; 
         border-top: 5px solid #5b13ea !important;
+    }
+}
+
+@media (max-width: 991px) and (orientation: landscape) {
+    .log {
+        visibility: hidden;
+    }
+
+    .card {
+        margin-top: 0;
+        height: 22rem !important;
+        width: 22rem !important;
+    }
+}
+
+/* Ajuste visual para tablets. / Responsive for tablets. */
+
+@media (min-width: 577px) and (max-width: 991px) {
+    .card {
+        height: auto !important;
+        width: 32rem !important;
+        padding: 2.5rem !important;
+        font-size: 1.2rem;
+    }
+
+    .card h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .card label {
+        font-size: 1.1rem;
+    }
+
+    .card input {
+        font-size: 1.1rem;
+        padding: 0.8rem;
+    }
+
+    .card .btn {
+        font-size: 1.2rem;
+        padding: 0.9rem;
+    }
+
+    .log img {
+        width: 220px;
+        height: 220px;
+        margin-bottom: 1.5rem;
+    }
+}
+
+
+/* Ajuste visual para portatiles. / Responsive for portatiles. */
+
+@media (min-width: 992px) and (max-width: 1366px) {
+    .log {
+        position: absolute;
+        justify-content: center;
+        margin-bottom: 20px;
+        margin-top: 0;
+    }
+
+    .log img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+    }
+
+    .card {
+        width: 22rem !important;
+        margin-top: 0;
     }
 }
