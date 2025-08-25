@@ -1,19 +1,28 @@
+// Librerías que se utilizaran. / Libraries to be used
+
 import colors from 'colors';
 import express from 'express';
 import cors from 'cors';
 import mysql from 'mysql2';
 import env from 'dotenv';
 
-//Modularize the enviroments variables
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+// Modularize the enviroments variables
 env.config();
+
 const dot = process.env;
 
-//Add dependencies to express
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+// Add dependencies to express
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-//Create conection
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+// Crear la conexión utilizando variables de entorno. / Create the connection using environment variables.
 export const con = mysql.createConnection({
   host: dot.HOST,
   port:dot.PORT_DB,
@@ -22,8 +31,11 @@ export const con = mysql.createConnection({
   database: dot.DB
 });
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-//Open local server in port 3000 and verify the credentials of the database
+// Abre el servidor local en el puerto 3000 y verifica las credenciales de la base de datos. 
+// Open local server in port 3000 and verify the credentials of the database.
+
 app.listen(dot.PORT, async (er) => {
     try {
         await con.connect();                                                    
@@ -42,4 +54,9 @@ app.listen(dot.PORT, async (er) => {
         console.error(`Error when connnect to the database\n${er}`.red);
     }
 });
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+/* Código para el inicio de sesión. / Login code. */
+
+
 
