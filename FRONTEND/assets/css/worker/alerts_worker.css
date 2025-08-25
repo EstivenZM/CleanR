@@ -1,27 +1,14 @@
-/* GOOGLE FONT */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* COLOR CUSTOMIZATION */
+body{
+  background-color: #1B1F22;
+}
 
 .bg-purple {
   background-color: #6f00ff !important;
 }
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* COLOR FOR BUTTONS */
-
-.btn-purple {
-  background-color: #5200c9;
-  color: #fff;
-}
-.btn-purple:hover {
-  color: #fff;
-  background-color: #5200c9;
-}
-
 .btn-nav {
-  background-color: #000000;
+  background-color:#1B1F22;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
@@ -87,9 +74,10 @@ header img {
 /*--------------------------------------*/
 
 main .container{
-  background-color: white;
-  border-radius: 10px;
-}
+  background-color: #1B1F22;
+  color: white
+};
+
 
 .button-addtask{
   background-color: #6a0dad;
