@@ -22,6 +22,8 @@ export const con = mysql.createConnection({
   database: dot.DB
 });
 
+import UsersRoutes  from './src/routes/users.routes.js';
+app.use("/users", UsersRoutes)
 
 //Open local server in port 3000 and verify the credentials of the database
 app.listen(dot.PORT, async (er) => {
