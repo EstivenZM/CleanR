@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 const bodyTable = document.getElementById("bodyTable");
-const url = "";
+const url = "http://localhost:3000";
 const add = document.getElementById("addUser");
 const content = document.getElementById("content");
 const msg = document.getElementById("msg")
@@ -123,10 +123,12 @@ bodyTable.addEventListener("click", async (e) => {
 //function for print users in the table
 async function printUsers() {
     msg.textContent = "Cargando..."
-    const response = await fetch(`url`);
-    const { body } = await response.json();
-    msg.textContent = ""
-    body.forEach(user => {
+    try {
+        const response = await fetch(`${url}/users/allUsers`);
+        const { body } = await response.json();
+        
+        msg.textContent = ""
+        body.forEach(user => {
         bodyTable.innerHTML += `
         <tr id="${user.id}">
             <td data-name="id">${user.id}</td>
@@ -143,6 +145,13 @@ async function printUsers() {
         </tr> 
         `;
     });
+    } catch (er) {
+        console.error(er);
+        
+        msg.textContent = "Ocurrio un error"
+    }
+    
+    
 };
 
 //callback function for the button/event click for add new user
@@ -204,7 +213,7 @@ async function addUser() {
 
         } else {
             try {
-                const res = await fetch(`url`, {
+                const res = await fetch(`${url}/users/insertUser`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'

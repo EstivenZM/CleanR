@@ -13,7 +13,7 @@ insert into users(name) values("Sin usuario");
 create table ubications(
 id int auto_increment primary key,
 name varchar(200)
-); # for 
+);
 insert into ubications(name) values("Sin ubicacion");
 
 
@@ -75,4 +75,4 @@ on cleanr.alerts to 'user'@'localhost';
 grant select, insert, update, delete
 on cleanr.registers_tasks to 'user'@'localhost';
 
-flush privileges; # refresh
+flush privileges; # refresh	

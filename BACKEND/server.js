@@ -22,6 +22,14 @@ export const con = mysql.createConnection({
   database: dot.DB
 });
 
+app.get("/", (req, res) => {
+    res.send(`
+        <h1>Endpoint General</h1>`);
+
+    console.log("GET".blue , "/");
+    
+})
+
 import UsersRoutes  from './src/routes/users.routes.js';
 app.use("/users", UsersRoutes)
 
