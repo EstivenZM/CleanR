@@ -85,3 +85,15 @@ header img {
     background-color: #3e0097;
   }
 }
+
+/*--------------------------------------*/
+
+main .container{
+  background-color: white;
+  border-radius: 10px;
+}
+
+.button-addtask{
+  background-color: #6a0dad;
+}
+
