@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("hashchange", () => {
-    const loc = winlocation.hash;
+    const loc = location.hash;
     if (loc == "#/addUser") {
         addUser();
     } else {
@@ -129,6 +129,7 @@ async function printUsers() {
         
         msg.textContent = ""
         body.forEach(user => {
+
         bodyTable.innerHTML += `
         <tr id="${user.id}">
             <td data-name="id">${user.id}</td>
@@ -178,8 +179,8 @@ async function addUser() {
                         <select class="form-select" id="rol" name="rol">
                             <option selected>Seleccione...</option>
                             <option value="tutor">Tutor</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="empleado">Empleado/a</option>
+                            <option value="administrator">Administrador</option>
+                            <option value="employee">Empleado/a</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success mx-1" id="send">Registrar usuario</button>
@@ -191,7 +192,6 @@ async function addUser() {
             </div>
         </div>
     `;
-
     const ret = document.getElementById("ret");
     const form = document.getElementById("formUser");
     const msg = document.getElementById("msg")
@@ -221,8 +221,11 @@ async function addUser() {
                     body: JSON.stringify(data)
                 });
 
+
             } catch (er) {
-                msg.innerHTML = `<p class="text-danger">Ocurrio un error, intentelo de nuevo</p>`
+                console.log(er);
+                
+                msg.innerHTML = `<p class="text-danger">Ocurrio un error, intentelo de nuevo</p>`;
             }
         }
     });

@@ -28,8 +28,7 @@ router.get("/allUsers", async (req, res) => {
 });
 
 router.post("/insertUser", (req, res) => {
-    const { name, email, password, rol } = req.body;
-    console.log(name, email, password, rol);
+    const { name, email, password, rol } = req.body;       
     
     try {
         con.query("insert into users(name, email, password, rol) values(?, ?, ?, ?)", 
