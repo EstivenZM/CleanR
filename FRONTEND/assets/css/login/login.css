@@ -1,182 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-
-main {
-    font-family: 'Poppins', sans-serif;
+body{
+    background-color: #1B1F22;
 }
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Fondo de la pagina. / Bottom of the page. */
-
-.d-flex {
-    background-color: #1B1F22 !important;
+.log{
+    padding: 0;
+    margin: 0;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Logo de la pagina. / Log page. */
-
-.log {
-    position: absolute;
-    top: 0;
-    left: 1;
-    padding: 1px;
-    margin-top: 7%
-}
-.log img {
-    object-fit: cover;
-    width: 150px;
-    height: 150px;
-    border-radius: 5%; 
+.log img{
+    width: 200px;
+    height: 200px;
+    object-fit:cover;
 }
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Titulos y subtitulos. / Titles and subtitles. */
-
-h2, 
-label {
-    color: #ffffff !important;
+.container{
+    width: 400px;
 }
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Carta del formulario. / Card from. */
-
-.card {
-    background-color: #1B1F22 !important;
-    border: solid 5px #8244ff !important;
-    width: 22rem !important; 
-    border-top: 5px solid #5b13ea !important;
+.card{
+    border: 5px solid #5200c9;
+    background-color: #1B1F22;
+    color: #ffff;
 }
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* INPUTS */
-
-input {
-    cursor: pointer;
-    background-color: #1B1F22 !important;
-    color: #5b13ea !important;
-    opacity: 2; 
-    outline: none !important;
-}
-::placeholder {
-    color: #ffffff !important;
-    font-style: italic;
-}
-input[type="email"]:focus,
-input[type = "password"]:focus {
-    border: solid 2px #8244ff !important;
-}
-
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Botón de inicio de sesión. / Sign In Button. */
-
-.btn {
-    background-color: #5b13ea;
-    color: white;
-}
-.btn:hover {
-    background-color: #8244ff;
-}
-
-
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-
-/* Animación de entrada. / Entrance animation. */
-.card {
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-.log img {
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Ajuste visual para celulares. / Responsive for cell phones. */
-
-@media (max-width: 576px) {
-    .log {
-        margin-top: 0%;
-    }
-
-    .card {
-        margin-top: 10%;
-        width: 22rem !important; 
-        border-top: 5px solid #5b13ea !important;
-    }
-}
-
-@media (max-width: 991px) and (orientation: landscape) {
-    .log {
-        visibility: hidden;
-    }
-
-    .card {
-        margin-top: 0;
-        height: 22rem !important;
-        width: 22rem !important;
-    }
-}
-
-/* Ajuste visual para tablets. / Responsive for tablets. */
-
-@media (min-width: 577px) and (max-width: 991px) {
-    .card {
-        height: auto !important;
-        width: 32rem !important;
-        padding: 2.5rem !important;
-        font-size: 1.2rem;
-    }
-
-    .card h2 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .card label {
-        font-size: 1.1rem;
-    }
-
-    .card input {
-        font-size: 1.1rem;
-        padding: 0.8rem;
-    }
-
-    .card .btn {
-        font-size: 1.2rem;
-        padding: 0.9rem;
-    }
-
-    .log img {
-        width: 220px;
-        height: 220px;
-        margin-bottom: 1.5rem;
-    }
-}
-
-
-/* Ajuste visual para portatiles. / Responsive for portatiles. */
-
-@media (min-width: 992px) and (max-width: 1366px) {
-    .log {
-        position: absolute;
-        justify-content: center;
-        margin-bottom: 20px;
-        margin-top: 0;
-    }
-
-    .log img {
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-    }
-
-    .card {
-        width: 22rem !important;
-        margin-top: 0;
-    }
+.btn{
+    background-color: #5200c9;
+    color: #ffff;
 }
