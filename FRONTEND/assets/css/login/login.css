@@ -38,11 +38,39 @@ body{
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Estilos para los inputs del formulario. / Styles for form inputs. */
+
+input[type='email'],
+input[type='password'] {
+    border: none;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 12px;
+    width: 100%;
+    background-color: #64696d;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    margin-bottom: 30px;
+}
+input[type='email']:focus,
+input[type='password']:focus {
+    border-color: #5200c9;
+    outline: none;
+}
+::placeholder {
+    font-size: 16px;
+    color: #ffff !important;
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
 /* Estilos para el botón del formulario. / Styles for the form button. */
 
 .btn{
     background-color: #5200c9;
     color: #ffff;
+}
+.btn:hover {
+    background-color: #8238f0;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
