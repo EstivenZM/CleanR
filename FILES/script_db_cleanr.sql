@@ -7,7 +7,7 @@ name varchar(200),
 email varchar(200) unique,
 password varchar(200),
 rol enum("tutor", "admin", "employee")
-);
+);		
 insert into users(name) values("Sin usuario");
 
 create table ubications(
