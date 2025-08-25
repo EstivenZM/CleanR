@@ -63,6 +63,19 @@ input[type='password']:focus {
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Estilos para el botón de la alerta. / Styles for the alert button. */
+
+.icon-alert {
+    border-color: #5200c9 !important;
+    color: #5200c9 !important;
+}
+
+.btn-confirm-alert {
+    background-color: #5200c9 !important;
+    color: #ffff !important;
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
 /* Estilos para el botón del formulario. / Styles for the form button. */
 
 .btn{
