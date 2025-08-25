@@ -48,7 +48,11 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             timer: 2000,
             showConfirmButton: false
         }).then(() => {
-            window.location.href = "...";
+            if(data.user.rol === 'admin') {
+                window.location.href = "...";
+            } else {
+                window.location.href = "...";
+            }
         });
 
     } catch (error) {
