@@ -38,12 +38,13 @@ app.use(alertRouter);
 
 
 
+
 //Open local server in port 3000 and verify the credentials of the database
-app.listen(dot.PORT, async (er) => {
+const server = app.listen(dot.PORT, async (er) => {
     try {
         await con.connect();                                                    
 
-        console.log(`\nThe credentials of the database it's right`.green);
+        console.log("\nThe credentials of the database it's right.green");
 
         
         if (er) {
@@ -58,3 +59,21 @@ app.listen(dot.PORT, async (er) => {
     }
 });
 
+//callbacks function for close connection
+function onServer() {
+  server.close(() => {
+  console.log("\nShutdown server...".yellow);
+
+  con.end((er) => {
+      if (er) {
+        console.error(er);
+      } else {
+        console.log("Closed connection with the database".yellow);
+      }
+      process.exit(0);
+  });
+});
+}
+
+process.on("SIGINT", onServer); 
+process.on("SIGTERM", onServer);
