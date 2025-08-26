@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+
 const bodyTable = document.getElementById("bodyTable");
 const url = "http://localhost:3000";
 const add = document.getElementById("addUser");
@@ -44,7 +45,7 @@ bodyTable.addEventListener("click", async (e) => {
                 body: [{ "id": id }]
             });
         }
-    //code for when update user
+        //code for when update user
     } else if (e.target.textContent == "Actualizar") {
         //obtain the father element html
         const dataElementHTML = e.target.parentNode.parentNode;
@@ -56,7 +57,7 @@ bodyTable.addEventListener("click", async (e) => {
                 data[element.dataset.name] = element.textContent
             }
         };
-        
+
         Swal.fire({
             title: 'Actualizar cliente',
             html: `
@@ -99,16 +100,16 @@ bodyTable.addEventListener("click", async (e) => {
 
                 //add id of the object
                 dataForm["id"] = data.id
-                
+
                 try {
-                     await fetch("url", {
+                    await fetch("url", {
                         method: 'PUT',
                         headers: {
                             'Content-Type': "application/json"
                         },
                         body: JSON.stringify(dataForm) //that dataForm contais changes updates
                     });
-                   location.reload();
+                    location.reload();
                 } catch (er) {
                     console.error(er);
                 }
@@ -126,108 +127,143 @@ async function printUsers() {
     try {
         const response = await fetch(`${url}/users/allUsers`);
         const { body } = await response.json();
-        
+
         msg.textContent = ""
         body.forEach(user => {
 
-        bodyTable.innerHTML += `
+            switch (user.rol) {
+                case "tutor":
+                    user.rol = "Tutor"
+                    break;
+
+                case "admin":
+                    user.rol = "Administrador"
+                    break;
+
+                case "worker":
+                    user.rol = "Empleado/a";
+
+                    break;
+            }
+            bodyTable.innerHTML += `
         <tr id="${user.id}">
-            <td data-name="id">${user.id}</td>
-            <td data-name="name" value="${user.name}">${user.name}</td>
+            <td data-name="id" scope="row">${user.id_user}</td>
+            <td data-name="name" value="${user.fullname}">${user.fullname}</td>
             <td data-name="email" value="${user.email}">${user.email}</td>
             <td data-name="password" value="${user.password}">${user.password}</td>
             <td>${user.rol}</td> 
-            <td>
-                <!--to make queries faster, we are going to put the user ID in a data-link-->
-
-                <button type="button" class="btn btn-danger m-1">Eliminar</button>
-                <button type="button" class="btn btn-info m-1">Actualizar</button>
-            </td> 
-        </tr> 
-        `;
-    });
+            <td class="p-1 flex justify-evenly">
+                <button type="button" class="btn btn-danger rounded-pill">Eliminar</button>
+                <button type="button" class="btn btn-info rounded-pill">Actualizar</button>
+            </td>   
+        </tr>`;
+        });
     } catch (er) {
         console.error(er);
-        
-        msg.textContent = "Ocurrio un error"
+        msg.innerHTML = "<p class='text-red-600 font-bold'>Ocurrio un error al traer los usuarios</p>"
     }
-    
-    
 };
 
 //callback function for the button/event click for add new user
 async function addUser() {
     window.location.href = "#/addUser";
     content.innerHTML = `
-        <div class="container">
-            <form id="formUser">
-                <div class="row d-block ">
-                    <div class="col">
-                        <label for="name">Nombre</label>
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <form id="formUser" class="p-4 bg-white rounded-4 shadow">
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Nombre</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="Nombre" required>
                     </div>
-                    <div class="col">
-                        <label for="email">Correo electronico</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Nombre" required>
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-bold">Correo electrónico</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Correo" required>
                     </div>
-                    <div class="col">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                    </div>
-                    <div class="col">
-                        <label for="rol">Rol del usuario</label>
-                        <select class="form-select" id="rol" name="rol">
-                            <option selected>Seleccione...</option>
-                            <option value="tutor">Tutor</option>
-                            <option value="administrator">Administrador</option>
-                            <option value="employee">Empleado/a</option>
+                    <div class="mb-3">
+                        <label for="rol" class="form-label fw-bold">Rol del usuario</label>
+                        <select id="rol" name="rol" class="form-select" required>
+                        <option selected disabled>Seleccione...</option>
+                        <option value="tutor">Tutor</option>
+                        <option value="admin">Administrador</option>
+                        <option value="employee">Empleado/a</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success mx-1" id="send">Registrar usuario</button>
-                </div>
-                <div id="msg" class="text-danger"></div>
-            </form>
-            <div class="col">
-                <button id="ret" type="button" class="btn btn-primary m-1">Regresar</button>
+                    <div class="d-flex gap-2 justify-content-center mt-3">
+                        <button type="submit" id="send" class="btn btn-success px-4">
+                        Registrar usuario
+                        </button>
+                        <button type="button" id="ret" class="btn btn-primary px-4">
+                        Regresar
+                        </button>
+                    </div>
+                    <div class="text-center mt-3" id="confirmations">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                </form>
             </div>
         </div>
+    </section>
     `;
     const ret = document.getElementById("ret");
-    const form = document.getElementById("formUser");
-    const msg = document.getElementById("msg")
+    const formUser = document.getElementById("formUser");
+    const confirmations = document.getElementById("confirmations");
+    let send = true
 
     ret.addEventListener("click", () => {
         location.hash = ""
         location.reload();
     });
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    //validate email
+    formUser.addEventListener("change", async (e) => {
+        if (e.target.id == "email") {
+            const email = e.target.value;
 
-        let data = new FormData(form);
+            const res = await fetch(`${url}/users/user?email=${email}`)
+            const { OK } = await res.json();
 
-        data = Object.fromEntries(data.entries());
+            if (OK) {
+                confirmations.children[0].outerHTML = "<p class='text-danger'>Este email ya existe</p>";
 
-        if (data.rol == "Seleccione...") {
-            msg.innerHTML = `<p class="text-danger">Seleccione un rol</p>`;
-
-        } else {
-            try {
-                const res = await fetch(`${url}/users/insertUser`, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-
-
-            } catch (er) {
-                console.log(er);
-                
-                msg.innerHTML = `<p class="text-danger">Ocurrio un error, intentelo de nuevo</p>`;
+                send = false
+            } else {
+                confirmations.children[0].outerHTML = "<p></p>";
+                send = true
             }
         }
+    });
+
+    formUser.addEventListener("submit", async (e) => {
+        e.preventDefault();
+       
+        let data = new FormData(formUser);
+        data = Object.fromEntries(data.entries());
+
+       if (!data.rol) {
+        confirmations.children[1].outerHTML = "<p> class='text-danger'>Asegurese de haber escogido de un rol</p>"
+       }
+        
+        // try {
+        //     const res = await fetch(`${url}/users/insertUser`, {
+        //         method: "POST",
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(data)
+        //     });
+        //     formUser.reset();
+        //     location.href = "";
+        //     window.reload();
+
+        // } catch (er) {
+        //     console.error(er);
+
+           
+        // }
+
     });
 };
 
