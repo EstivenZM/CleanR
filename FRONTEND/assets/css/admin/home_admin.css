@@ -26,10 +26,7 @@ aside{
     object-fit: cover;
 }
 
-
 .content-aside{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    height: 70%;
 }
 
