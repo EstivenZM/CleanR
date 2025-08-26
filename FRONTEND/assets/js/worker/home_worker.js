@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-let numberTask = document.getElementById("numberTask")
-numberTask.innerHTML= 25
+async function getTask() {
+    const res = await fetch("http://localhost:3000/")
+}
 
+
+//Renderizar por task, chuliar se manda a register con estado realizado
