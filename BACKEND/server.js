@@ -30,8 +30,13 @@ app.get("/", (req, res) => {
     
 })
 
-import UsersRoutes  from './src/routes/users.routes.js';
-app.use("/users", UsersRoutes)
+import tasksRouter from '../BACKEND/src/routes/tasks.routes.js';
+app.use(tasksRouter);
+
+import alertRouter from '../BACKEND/src/routes/alerts.routes.js';
+app.use(alertRouter);
+
+
 
 //Open local server in port 3000 and verify the credentials of the database
 app.listen(dot.PORT, async (er) => {
