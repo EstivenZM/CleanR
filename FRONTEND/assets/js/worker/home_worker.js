@@ -24,6 +24,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
 //Renderizar por task, chuliar se manda a register con estado realizado
