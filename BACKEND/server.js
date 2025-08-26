@@ -66,28 +66,38 @@ app.post("/login", async (req, res) => {
       )
     );
 
-    if (rows.length === 0)
-      return res.status(401).json({ success: false, message: "Credenciales incorrectas." });
 
-    const user = rows[0];
 
-    return res.json({
-      success: true,
-      user: {
-        id_user: user.id_user,
-        fullname: user.fullname,
-        email: user.email,
-        rol: user.rol
-      }
-    });
+//Open local server in port 3000 and verify the credentials of the database
+const server = app.listen(dot.PORT, async (er) => {
+    try {
+        await con.connect();                                                    
 
+        console.log("\nThe credentials of the database it's right.green");
+
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Error interno del servidor." });
   }
 });
 
-// Iniciar servidor. / Start server.
-app.listen(dot.PORT, () => {
-  console.log(`🚀 Servidor escuchando en http://localhost:${dot.PORT}`);
+//callbacks function for close connection
+function onServer() {
+  server.close(() => {
+  console.log("\nShutdown server...".yellow);
+
+  con.end((er) => {
+      if (er) {
+        console.error(er);
+      } else {
+        console.log("Closed connection with the database".yellow);
+      }
+      process.exit(0);
+  });
 });
+}
+
+process.on("SIGINT", onServer); 
+process.on("SIGTERM", onServer);
+
