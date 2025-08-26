@@ -14,6 +14,18 @@ router.get("/tasks", (req, res) => {
     })
 })
 
+router.get("/tasksArea", (req, res) => {
+    con.query("SELECT tasks.id_task, tasks.name, locations.name AS location_name, tasks.status FROM tasks JOIN locations ON tasks.id_location = locations.id_location;", (er, result) => {
+        if (er) {
+            console.error(er);
+            res.status(500).send("fallo")
+        }
+        console.log(result);
+        
+        res.status(200).json({ result })
+    })
+})
+
 router.post("/sendTask", (req, res) => {
     const { name, id_location, status } = req.body;
     
