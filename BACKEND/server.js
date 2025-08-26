@@ -53,7 +53,7 @@ app.use(alertRouter);
 
 // Endpoint: inicio de sesión. / Endpoint: login.
 app.post("/login", async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password)
     return res.status(400).json({ success: false, message: "Todos los campos son obligatorios." });
@@ -61,8 +61,8 @@ app.post("/login", async (req, res) => {
   try {
     const [rows] = await connectionDB().then(db =>
       db.execute(
-        "SELECT * FROM users WHERE name = ? AND email = ? AND password = ? AND role = ?",
-        [name, email, password, role]
+        "SELECT * FROM users WHERE email = ? AND password = ?",
+        [email, password]
       )
     );
 
@@ -74,16 +74,16 @@ app.post("/login", async (req, res) => {
     return res.json({
       success: true,
       user: {
-        id: user.id,
-        name: user.name,
+        id_user: user.id_user,
+        fullname: user.fullname,
         email: user.email,
-        role: user.role,
-      },
+        rol: user.rol
+      }
     });
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: "Ha ocurrido un error imprevisto con el servidor." });
+    res.status(500).json({ success: false, message: "Error interno del servidor." });
   }
 });
 
