@@ -23,6 +23,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-let numberTask = document.getElementById("numberTask")
-numberTask.innerHTML= 25
 
