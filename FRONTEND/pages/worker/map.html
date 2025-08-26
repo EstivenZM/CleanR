@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/worker/home_worker.css">
+    <link rel="stylesheet" href="../../assets/css/worker/map.css">
+</head>
+
+<body>
+    <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
+        <div class="log">
+            <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
+        </div>
+
+        <div id="navbarContainerHeader">
+            <nav id="mainNavbar" class="navbar">
+                <div class="container d-flex justify-content-around">
+                    <button id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Ver
+                        alertas </button>
+                    <button id="btnAlert" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Alertar
+                    </button>
+                    <button id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Verificar
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="btn-logOut">
+            <button id="btnLogOut" class="btn btn-dark btn-sm rounded-pill" type="submit"> Cerrar sesión </button>
+        </div>
+    </header>
+
+    <main class="flex-grow-1 container mt-4 ">
+        <h2 class="fw-bold mb-4 text-center">Map</h2>
+
+        <div class="container-fluid py-2 container_map" id="map">
+
+            <div class="row">
+                <!-- Left column -->
+                <div class="col-3 col-md-2 d-flex flex-column justify-content-center div-columna-izquierda p-2">
+                    <div class="mb-2 p-3 text-center div-habilidades map" id="room5">Sala 5</div>
+                    <div class="mb-2 p-3 text-center div-berners map" id="room4">Sala 4</div>
+                    <div class="p-3 text-center div-coworking map" id="coworking">Co-Working</div>
+                </div>
+
+                <!-- Central zone -->
+                <div class="col-6 col-md-8 d-flex flex-column align-items-center center">
+                    <!-- High hallway -->
+                    <div class="w-100 text-center p-2 mb-2 div-pasillo-alto map" id="high-hallway">pasillo alto</div>
+
+                    <!-- stairs and stands -->
+                    <div class="row flex-grow-1 w-100 conntainer_gradas">
+                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs1">escaleras</div>
+                        <div class="col-6 d-flex align-items-center justify-content-center div-gradas map" id="stands">gradas</div>
+                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs2">escaleras</div>
+                    </div>
+
+                    <!-- Low hallway -->
+                    <div class="w-100 text-center p-2 mt-2 div-pasillo-bajo map" id="low-hallway">pasillo bajo</div>
+                </div>
+
+                <!-- Right column -->
+                <div class="col-3 col-md-2 d-flex flex-column justify-content-center div-columna-derecha p-2">
+                    <div class="mb-2 p-3 text-center div-vanrossum map" id="room3">Sala 3</div>
+                    <div class="mb-2 p-3 text-center div-richie map" id="room2">Sala 2</div>
+                    <div class="p-3 text-center div-staff map" id="room1">Sala 1</div>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="modales">
+
+            <div class="modal fade" id="standsModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">GRADAS</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formStands">
+                                <div class="mb-1">
+                                    <input type="checkbox" class="me-1" id="inputTask1" name="Tarea1">
+                                    <label for="inputTask1" class="col-form-label"> Tarea 1</label>
+                                </div>
+                                <div class="mb-1">
+                                    <input type="checkbox" class="me-1" id="inputTask2" name="Tarea2">
+                                    <label for="inputTask2" class="col-form-label"> Tarea 2</label>
+                                </div>
+                                <div class="mb-1">
+                                    <input type="checkbox" class="me-1" id="inputTask3" name="Tarea3">
+                                    <label for="inputTask3" class="col-form-label"> Tarea 3</label>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">OBSERVACIONES </label>
+                                    <textarea class="form-control" id="message-text" name="observations"></textarea>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer id="footer" class="bg-purple py-3 rounded-top-4">
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="../../assets/js/worker/home_worker.js"></script>
+    <script src="../../assets/js/worker/map.js"></script>
+</body>
+
+</html>
