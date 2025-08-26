@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('mainNavbar');
     const footer = document.getElementById('footer');
     const headerContainer = document.getElementById('navbarContainerHeader');
-    
+
     function moveNavbarBasedOnScreenWidth() {
         if (window.innerWidth < 768) {
             // Mover al footer si no está allí
@@ -22,6 +22,3 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
 
-
-
-//Renderizar por task, chuliar se manda a register con estado realizado
