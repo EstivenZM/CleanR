@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
 
+async function getTask() {
+    const res = await fetch("http://localhost:3000/")
+}
 
 
 //Renderizar por task, chuliar se manda a register con estado realizado

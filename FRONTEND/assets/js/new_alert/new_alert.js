@@ -21,3 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
+
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+});
