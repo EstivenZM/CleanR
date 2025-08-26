@@ -50,17 +50,17 @@
                 <!-- Central zone -->
                 <div class="col-6 col-md-8 d-flex flex-column align-items-center center">
                     <!-- High hallway -->
-                    <div class="w-100 text-center p-2 mb-2 div-pasillo-alto map" id="high-hallway">pasillo alto</div>
+                    <div class="w-100 text-center p-2 mb-2 div-pasillo-alto map" id="high-hallway">Pasillo alto</div>
 
                     <!-- stairs and stands -->
                     <div class="row flex-grow-1 w-100 conntainer_gradas">
-                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs1">escaleras</div>
-                        <div class="col-6 d-flex align-items-center justify-content-center div-gradas map" id="stands">gradas</div>
-                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs2">escaleras</div>
+                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs1">Escaleras Izquierda</div>
+                        <div class="col-6 d-flex align-items-center justify-content-center div-gradas map" id="stands">Gradas</div>
+                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs2">Escaleras Derecha</div>
                     </div>
 
                     <!-- Low hallway -->
-                    <div class="w-100 text-center p-2 mt-2 div-pasillo-bajo map" id="low-hallway">pasillo bajo</div>
+                    <div class="w-100 text-center p-2 mt-2 div-pasillo-bajo map" id="low-hallway">Pasillo bajo</div>
                 </div>
 
                 <!-- Right column -->
@@ -79,22 +79,24 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">GRADAS</h1>
+                            <h1 class="modal-title fs-5" id="place"></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form id="formStands">
-                                <div class="mb-1">
-                                    <input type="checkbox" class="me-1" id="inputTask1" name="Tarea1">
-                                    <label for="inputTask1" class="col-form-label"> Tarea 1</label>
-                                </div>
-                                <div class="mb-1">
-                                    <input type="checkbox" class="me-1" id="inputTask2" name="Tarea2">
-                                    <label for="inputTask2" class="col-form-label"> Tarea 2</label>
-                                </div>
-                                <div class="mb-1">
-                                    <input type="checkbox" class="me-1" id="inputTask3" name="Tarea3">
-                                    <label for="inputTask3" class="col-form-label"> Tarea 3</label>
+                                <div class="taskContainer">
+                                    <div class="mb-1">
+                                        <input type="checkbox" class="me-1" id="inputTask1" name="Tarea1">
+                                        <label for="inputTask1" class="col-form-label"> Tarea 1</label>
+                                    </div>
+                                    <div class="mb-1">
+                                        <input type="checkbox" class="me-1" id="inputTask2" name="Tarea2">
+                                        <label for="inputTask2" class="col-form-label"> Tarea 2</label>
+                                    </div>
+                                    <div class="mb-1">
+                                        <input type="checkbox" class="me-1" id="inputTask3" name="Tarea3">
+                                        <label for="inputTask3" class="col-form-label"> Tarea 3</label>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">OBSERVACIONES </label>
