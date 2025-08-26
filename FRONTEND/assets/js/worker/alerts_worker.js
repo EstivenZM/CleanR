@@ -21,9 +21,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
-
-
-
-
-
-//Renderizar por task, chuliar se manda a register con estado realizado
