@@ -1,4 +1,5 @@
 const standsModal = new bootstrap.Modal(document.getElementById("standsModal"));
+const place = document.getElementById("place");
 let map = document.querySelectorAll(".map");
 
 map.forEach((div) => {
@@ -6,7 +7,7 @@ map.forEach((div) => {
         const id = e.target.id;
 
         standsModal.show();
-        alert("Click en " + div.textContent);
+        place.textContent = div.textContent;
         const formStands = document.getElementById("formStands");
         formStands.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -14,9 +15,9 @@ map.forEach((div) => {
             const data = Object.fromEntries(formData.entries());
 
             console.log(data);
-            //formStands.reset();
             // cierro el modal
             //const standsModal = bootstrap.Modal.getInstance(document.getElementById("standsModal"));
+            //formStands.reset();
             standsModal.hide();
             window.location.reload();
         });
