@@ -20,5 +20,46 @@ document.addEventListener('DOMContentLoaded', () => {
     moveNavbarBasedOnScreenWidth();
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
+
+
+
+
+
+
+
+
+
 });
+
+/* ----------------------------------- Welcome user--------------------------- */
+let userName = sessionStorage.getItem("userName")
+let welcomeNameUser = document.getElementById("nameUser")
+welcomeNameUser.innerHTML=userName
+
+
+/*------------------------------------See how many pending tasks--------------------------------*/
+
+
+async function getTasks() {
+    const res = await fetch("http://localhost:3000/tasks")
+    const data = await res.json()
+    return data
+}
+
+async function viewTask() {
+    let counter = 0
+    let tasks = await getTasks()
+
+    tasks.result.forEach(task => {
+        if (task.status == "pendiente") {
+            counter += 1
+        }
+    });
+
+    let numberTask = document.getElementById("numberTask")
+    numberTask.innerHTML = counter
+
+}
+
+viewTask()
 
