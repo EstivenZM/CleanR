@@ -38,7 +38,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }
 
         // Guardar la información del usuario en sessionStorage. / Save user information to sessionStorage.
-        sessionStorage.setItem("userName", data.user.name);
+        sessionStorage.setItem("userName", data.name);
         sessionStorage.setItem("userRole", data.user.rol);
 
         Swal.fire({
