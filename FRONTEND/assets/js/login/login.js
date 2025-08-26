@@ -14,7 +14,6 @@ document.getElementById("loginForm").addEventListener("submit", async function (
                 icon: 'icon-alert'
             }
         });
-
         return;
     }
 
@@ -22,7 +21,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         const res = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password, rol})
+            body: JSON.stringify({ email, password })
         });
 
         const data = await res.json();
@@ -31,36 +30,55 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             Swal.fire({
                 icon: "error",
                 title: "¡Error!",
-                text: data.message || "Se ha producido un error inesperado."
+                text: data.message || "Se ha producido un error inesperado.",
+                customClass: {
+                    confirmButton: 'btn-confirm-alert',
+                    icon: 'icon-alert'
+                }
             });
-
             return;
         }
 
-        // Guardar la información del usuario en sessionStorage. / Save user information to sessionStorage.
-        sessionStorage.setItem("userName", data.user.name);
-        sessionStorage.setItem("userRole", data.user.rol);
+        // Guardar datos del usuario en localStorage. / Save user data in localStorage.
+        localStorage.setItem("fullname", data.user.fullname);
+        localStorage.setItem("email", data.user.email);
+        localStorage.setItem("rol", data.user.rol);
 
         Swal.fire({
             icon: "success",
-            title: `¡Bienvenido ${data.user.name}!`,
+            title: `¡Bienvenido ${data.user.fullname}!`,
             text: `Rol: ${data.user.rol}`,
             timer: 2000,
-            showConfirmButton: false
+            showConfirmButton: false,
+            customClass: {
+                confirmButton: 'btn-confirm-alert',
+                icon: 'icon-alert'
+            }
         }).then(() => {
-            if(data.user.rol === 'admin') {
-                window.location.href = "...";
-            } else {
-                window.location.href = "...";
+            switch (data.user.rol) {
+                case 'admin':
+                    window.location.href = "...";
+                    break;
+                case 'worker':
+                    window.location.href = "...";
+                    break;
+                case 'tutor':
+                    window.location.href = "...";
+                    break;
+                default:
+                    window.location.href = "...";
             }
         });
 
     } catch (error) {
-
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "No se pudo conectar al servidor."
+            text: "No se pudo conectar al servidor.",
+            customClass: {
+                confirmButton: 'btn-confirm-alert',
+                icon: 'icon-alert'
+            }
         });
     }
 });

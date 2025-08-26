@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
 /* ----------------------------------- Welcome user--------------------------- */
 let userName = sessionStorage.getItem("userName")
 let welcomeNameUser = document.getElementById("nameUser")
@@ -58,7 +59,6 @@ async function viewTask() {
 
     let numberTask = document.getElementById("numberTask")
     numberTask.innerHTML = counter
-
 }
 
 viewTask()
