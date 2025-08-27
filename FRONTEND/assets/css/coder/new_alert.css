@@ -11,13 +11,9 @@
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
 /* COLOR FOR BUTTONS */
 
-.btn-purple {
-  background-color: #5200c9;
+.btn-logOut {
+  background-color: #000000;
   color: #fff;
-}
-.btn-purple:hover {
-  color: #fff;
-  background-color: #5200c9;
 }
 
 .btn-nav {
