@@ -1,4 +1,4 @@
-/* Color de fondo para el header y el footer. / Background color for the header and footer */
+/* Fondo para el header. / Background for header. */
 
 .bg-purple {
     background-color: #6f00ff !important;
@@ -24,6 +24,13 @@ header img {
     width: 90px;
     height: 90px;
     border-radius: 5%;
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Pie de pagina de la vista. / Footer of the view. */
+
+footer {
+    visibility: hidden;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
@@ -81,6 +88,8 @@ header img {
         left: 0;
         width: 100%;
         border-top: 1px solid rgba(255, 255, 255, 0.2);
+        visibility: visible;
+        background-color: #6f00ff !important;
     }
 
     #mainNavbar {
@@ -156,3 +165,48 @@ header img {
         white-space: normal;
     }
 }
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Tamaño ajustable para tablets. / */
+
+@media (max-width: 768px) {
+    #footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        visibility: visible;
+        background-color: #6f00ff !important;
+    }
+}
+
+/* Tamaño ajustable para tablets (Horizontal). / */
+@media (max-width: 1024px) {
+    #footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        visibility: visible;
+        background-color: #6f00ff !important;
+    }
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Tamaño ajustable para laptops. / */
+
+/* Laptops estándar */
+@media (max-width: 1280px) {
+    #footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        visibility: visible;
+        background-color: #6f00ff !important;
+    }
+}
+
