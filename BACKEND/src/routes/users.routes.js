@@ -22,14 +22,14 @@ router.post("/login", (req, res) => {
                 console.error("Error en la consulta:", err);
                 return res.status(500).json({
                     success: false,
-                    message: "Error en el servidor."
+                    message: "Ha ocurrido un error en el servidor."
                 });
             }
 
             if (results.length === 0) {
                 return res.status(401).json({
                     success: false,
-                    message: "Credenciales incorrectas."
+                    message: "Credenciales incorrectas o usuario inexistente."
                 });
             }
 
@@ -37,7 +37,7 @@ router.post("/login", (req, res) => {
 
             return res.status(200).json({
                 success: true,
-                message: "Login exitoso.",
+                message: "Login exitoso. ¡Bienvenido!",
                 user
             });
         }
