@@ -62,6 +62,7 @@ router.put("/tasks/:id", (req, res) => {
 
 router.delete("/tasks/:id", (req, res) => {
     const { id } = req.params
+    console.log(id);
     con.query("DELETE FROM tasks WHERE id_task = ?", [id],
         (error, result) => {
             if (error) {
