@@ -40,9 +40,12 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }
 
         // Guardar datos del usuario en localStorage. / Save user data in localStorage.
-        localStorage.setItem("fullname", data.user.fullname);
-        localStorage.setItem("email", data.user.email);
-        localStorage.setItem("rol", data.user.rol);
+        function saveData() {
+            localStorage.setItem("fullname", data.user.fullname);
+            localStorage.setItem("email", data.user.email);
+            localStorage.setItem("rol", data.user.rol);
+        }
+        
 
         Swal.fire({
             icon: "success",
@@ -57,16 +60,14 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }).then(() => {
             switch (data.user.rol) {
                 case 'admin':
-                    window.location.href = "...";
+                    window.location.href = "../../../pages/admin/home_admin.html";
                     break;
                 case 'worker':
-                    window.location.href = "...";
+                    window.location.href = "../../../pages/worker/home_worker.html";
                     break;
                 case 'tutor':
-                    window.location.href = "...";
+                    window.location.href = "../../../pages/coder/new_alert.html";
                     break;
-                default:
-                    window.location.href = "...";
             }
         });
 
