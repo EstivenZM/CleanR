@@ -1,77 +1,77 @@
-// Librerías que se utilizarán. / Libraries to be used
+import colors from 'colors';
 import express from 'express';
 import cors from 'cors';
-import colors from 'colors';
-import { createConnection } from 'mysql2/promise';
+import mysql from 'mysql2';
 import env from 'dotenv';
 
-// Modularize the environment variables
+//Modularize the enviroments variables
 env.config();
 const dot = process.env;
 
-// Add dependencies to express
+//Add dependencies to express
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Crear la conexión utilizando variables de entorno. / Create the connection using environment variables.
-async function connectionDB() {
-    return await createConnection({
-        host: dot.HOST,
-        port: dot.PORT_DB,
-        user: dot.USER_DB,
-        password: dot.USER_PASS,
-        database: dot.DB
-    });
-}
-
-// Endpoint general. / General endpoint.
-app.get("/", (req, res) => {
-    res.send(`<h1>Endpoint General</h1>`);
-    console.log("GET".blue, "/");
+//Create conection
+export const con = mysql.createConnection({
+  host: dot.HOST,
+  port:dot.PORT_DB,
+  user: dot.USER_DB,
+  password: dot.USER_PASS,
+  database: dot.DB
 });
 
+app.get("/", (req, res) => {
+    res.send(`
+        <h1>Endpoint General</h1>`);
 
-// Rutas personalizadas. / Customized routes.
-import tasksRouter from '../BACKEND/src/routes/tasks.routes.js';
-app.use(tasksRouter);
+    console.log("GET".blue , "/");
+    
+})
 
-import alertRouter from '../BACKEND/src/routes/alerts.routes.js';
-app.use(alertRouter);
+import UsersRoutes  from './src/routes/users.routes.js';
+app.use("/users", UsersRoutes)
 
-
+import taskRoutes from './src/routes/tasks.routes.js'
+app.use("/tasks", taskRoutes)
 
 
 //Open local server in port 3000 and verify the credentials of the database
 const server = app.listen(dot.PORT, async (er) => {
     try {
-        await con.connect();
+        await con.connect();                                                    
 
-        console.log("\nThe credentials of the database it's right.green");
+        console.log(`\nThe credentials of the database it's right`.green);
 
+        
+        if (er) {
+            console.error(`\nError in the port of the localserver\n${er}`.red);
+        } else {
+            console.log(`\nLocal server started in...\nhttp://localhost:${dot.PORT}`.green);
+        }
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: "Error interno del servidor." });
+        
+    } catch (er) {
+        console.error(`Error when connnect to the database\n${er}`.red);
     }
 });
 
 //callbacks function for close connection
 function onServer() {
-    server.close(() => {
-        console.log("\nShutdown server...".yellow);
+  server.close(() => {
+  console.log("\nShutdown server...".yellow);
 
-        con.end((er) => {
-            if (er) {
-                console.error(er);
-            } else {
-                console.log("Closed connection with the database".yellow);
-            }
-            process.exit(0);
-        });
-    });
+  con.end((er) => {
+      if (er) {
+        console.error(er);
+      } else {
+        console.log("Closed connection with the database".yellow);
+      }
+      process.exit(0);
+  });
+});
 }
 
-process.on("SIGINT", onServer);
+process.on("SIGINT", onServer); 
 process.on("SIGTERM", onServer);
-
