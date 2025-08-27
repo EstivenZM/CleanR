@@ -35,69 +35,59 @@
     </header>
 
     <main class="flex-grow-1 container mt-4 ">
-        <h2 class="fw-bold mb-4 text-center">Map</h2>
+        <h2 class="fw-bold mb-4 text-center text-white">Mapa Riwi</h2>
 
         <div class="container-fluid py-2 container_map" id="map">
 
             <div class="row">
                 <!-- Left column -->
                 <div class="col-3 col-md-2 d-flex flex-column justify-content-center div-columna-izquierda p-2">
-                    <div class="mb-2 p-3 text-center div-habilidades map" id="room5">Sala 5</div>
-                    <div class="mb-2 p-3 text-center div-berners map" id="room4">Sala 4</div>
-                    <div class="p-3 text-center div-coworking map" id="coworking">Co-Working</div>
+                    <div class="mb-2 p-3 text-center div-habilidades map" id="sala5">Sala 5</div>
+                    <div class="mb-2 p-3 text-center div-berners map" id="sala4">Sala 4</div>
+                    <div class="p-3 text-center div-coworking map" id="cooworking">Cooworking</div>
                 </div>
 
                 <!-- Central zone -->
                 <div class="col-6 col-md-8 d-flex flex-column align-items-center center">
                     <!-- High hallway -->
-                    <div class="w-100 text-center p-2 mb-2 div-pasillo-alto map" id="high-hallway">Pasillo alto</div>
+                    <div class="w-100 text-center p-2 mb-2 div-pasillo-alto map" id="pasillo_alto">Pasillo alto</div>
 
                     <!-- stairs and stands -->
                     <div class="row flex-grow-1 w-100 conntainer_gradas">
-                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs1">Escaleras Izquierda</div>
-                        <div class="col-6 d-flex align-items-center justify-content-center div-gradas map" id="stands">Gradas</div>
-                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="stairs2">Escaleras Derecha</div>
+                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="escaleras_izquierda">Escaleras Izquierda</div>
+                        <div class="col-6 d-flex align-items-center justify-content-center div-gradas map" id="gradas">Gradas</div>
+                        <div class="col-2 d-flex align-items-center justify-content-center div-esc map" id="escaleras_derechas">Escaleras Derecha</div>
                     </div>
 
                     <!-- Low hallway -->
-                    <div class="w-100 text-center p-2 mt-2 div-pasillo-bajo map" id="low-hallway">Pasillo bajo</div>
+                    <div class="w-100 text-center p-2 mt-2 div-pasillo-bajo map" id="pasillo_bajo">Pasillo bajo</div>
                 </div>
 
                 <!-- Right column -->
                 <div class="col-3 col-md-2 d-flex flex-column justify-content-center div-columna-derecha p-2">
-                    <div class="mb-2 p-3 text-center div-vanrossum map" id="room3">Sala 3</div>
-                    <div class="mb-2 p-3 text-center div-richie map" id="room2">Sala 2</div>
-                    <div class="p-3 text-center div-staff map" id="room1">Sala 1</div>
+                    <div class="mb-2 p-3 text-center div-vanrossum map" id="sala3">Sala 3</div>
+                    <div class="mb-2 p-3 text-center div-richie map" id="sala2">Sala 2</div>
+                    <div class="p-3 text-center div-staff map" id="sala1">Sala 1</div>
                 </div>
             </div>
 
         </div>
-
         <section class="modales">
 
             <div class="modal fade" id="standsModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="place"></h1>
+                            <h1 class="modal-title fs-5" id="locationName"></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="formStands">
+                            <form id="formTasks">
+
                                 <div class="taskContainer">
-                                    <div class="mb-1">
-                                        <input type="checkbox" class="me-1" id="inputTask1" name="Tarea1">
-                                        <label for="inputTask1" class="col-form-label"> Tarea 1</label>
-                                    </div>
-                                    <div class="mb-1">
-                                        <input type="checkbox" class="me-1" id="inputTask2" name="Tarea2">
-                                        <label for="inputTask2" class="col-form-label"> Tarea 2</label>
-                                    </div>
-                                    <div class="mb-1">
-                                        <input type="checkbox" class="me-1" id="inputTask3" name="Tarea3">
-                                        <label for="inputTask3" class="col-form-label"> Tarea 3</label>
-                                    </div>
+
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">OBSERVACIONES </label>
                                     <textarea class="form-control" id="message-text" name="observations"></textarea>
