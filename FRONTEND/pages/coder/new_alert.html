@@ -16,7 +16,7 @@
     <link rel="icon" href="..." type="image/x-icon">
 </head>
 
-<body class="d-flex flex-column min-vh-100"><!-- ❌ QUITÉ bg-light -->
+<body class="d-flex flex-column min-vh-100">
 
     <!-- ========== HEADER ========== -->
     <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
@@ -52,48 +52,32 @@
         </div>
 
         <!-- Form -->
-        <section class="container mt-4 text-white">
-
-            <!-- Location select -->
+        <section class="container mt-4">
             <div class="mb-3 w-75 mx-auto">
                 <label for="lugar" class="form-label fw-bold">Lugar:</label>
                 <select id="lugar" name="lugar" class="form-select rounded-pill text-center">
-                    <option value="1">Gradas</option>
-                    <option value="2">Co-Working</option>
-                    <option value="3">Escaleras Izquierda</option>
-                    <option value="4">Escaleras Derecha</option>
-                    <option value="5">Pasillo Bajo</option>
-                    <option value="6">Pasillo Alto</option>
-                    <option value="7">Sala 5</option>
-                    <option value="8">Sala 4</option>
-                    <option value="9">Sala 3</option>
-                    <option value="10">Sala 2</option>
-                    <option value="11">Sala 1</option>
+                    <option value="select" selected>Seleccionar...</option>
+                    <!-- Opciones se llenarán dinámicamente desde JS -->
                 </select>
             </div>
 
-
-            <!-- Alert input -->
             <div class="mb-3 w-75 mx-auto">
                 <label for="alerta" class="form-label fw-bold">Motivo de alerta:</label>
                 <input type="text" id="alerta" name="alerta" class="form-control rounded-pill text-center"
                     placeholder="Escribe motivo de tu alerta...">
             </div>
 
-
-            <!-- Message -->
             <div class="mb-3 w-75 mx-auto">
                 <label for="messageAlert" class="form-label fw-bold">Mensaje:</label>
                 <textarea id="messageAlert" name="messageAlert" class="form-control rounded-4 bg-light"
                     rows="3"></textarea>
             </div>
 
-            <!-- Send button -->
             <div class="text-center">
                 <button id="btnSend" class="btn btn-purple rounded-pill px-4" type="submit">Enviar</button>
             </div>
-
         </section>
+
     </main>
 
     <!-- ========== FOOTER ========== -->

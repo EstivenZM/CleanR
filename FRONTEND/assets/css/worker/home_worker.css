@@ -91,3 +91,10 @@ main .container{
 .button-viewtask:hover{
   border: 1px solid #6f00ff;
 }
+
+span{
+  color: #ffff;
+  background-color: #6f00ff;
+  border-radius: 5px;
+  padding: 2px;
+}

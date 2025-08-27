@@ -1,7 +1,7 @@
 // assets/js/new_alert/new_alert.js
 document.addEventListener("DOMContentLoaded", () => {
   // -------------------------------
-  // Mover navbar arriba/abajo según pantalla
+  // Mover navbar arriba/abajo segun pantalla
   // -------------------------------
   const navbar = document.getElementById("mainNavbar");
   const footer = document.getElementById("footer");
@@ -17,43 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
         headerContainer.appendChild(navbar);
       }
     }
+<<<<<<< HEAD:FRONTEND/assets/js/new_alert/new_alert.js
   }
 
   moveNavbarBasedOnScreenWidth();
   window.addEventListener("resize", moveNavbarBasedOnScreenWidth);
-
-  // -------------------------------
-  // Cargar locations desde la DB
-  // -------------------------------
-  async function loadLocations() {
-  const select = document.getElementById("lugar");
-
-  try {
-    const res = await fetch("http://localhost:3000/locations");
-    if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
-
-    const locations = await res.json();
-
-    // Limpia y agrega opción inicial
-    select.innerHTML = '<option value="" disabled selected>Seleccionar...</option>';
-
-    locations.forEach(location => {
-      const option = document.createElement("option");
-      option.value = location.name;        
-      option.textContent = location.name;  
-      select.appendChild(option);
-    });
-
-  } catch (err) {
-    console.error("Error cargando locations:", err);
-
-  
-    select.innerHTML = '<option value="" disabled>Error cargando ubicaciones</option>';
-  }
-}
-
-loadLocations();
-
 
   // -------------------------------
   // Manejo de formulario de alerta
@@ -92,12 +60,16 @@ loadLocations();
       const data = await res.json();
 
       if (!res.ok) {
-        return Swal.fire("Error", data.error || "No se pudo crear la alerta", "error");
+        return Swal.fire(
+          "Error",
+          data.error || "No se pudo crear la alerta",
+          "error"
+        );
       }
 
       Swal.fire("Éxito", "La alerta fue creada correctamente", "success");
 
-      // Resetear campos
+      // Reset alert fields
       document.getElementById("messageAlert").value = "";
       document.getElementById("alerta").value = "";
       document.getElementById("lugar").value = "select";
@@ -106,4 +78,15 @@ loadLocations();
       Swal.fire("Error", "Error de conexión con el servidor", "error");
     }
   });
+=======
+    // Ejecutar al cargar la página
+    moveNavbarBasedOnScreenWidth();
+    // Ejecutar cuando cambia el tamaño de la pantalla
+    window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
+});
+
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+>>>>>>> 357d442180687b437fd7a99bec89c252830798f8:FRONTEND/assets/js/coder/new_alert.js
 });

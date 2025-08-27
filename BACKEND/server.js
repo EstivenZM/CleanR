@@ -27,19 +27,19 @@ app.get("/", (req, res) => {
         <h1>Endpoint General</h1>`);
 
     console.log("GET".blue , "/");
-    
 })
 
-import tasksRouter from '../BACKEND/src/routes/tasks.routes.js';
-app.use(tasksRouter);
 
-import alertRouter from '../BACKEND/src/routes/alerts.routes.js';
-app.use(alertRouter);
 
+import UsersRoutes from './src/routes/users.routes.js';
+app.use("/", UsersRoutes)
+
+import taskRoutes from './src/routes/tasks.routes.js'
+app.use("/tasks", taskRoutes)
 
 
 //Open local server in port 3000 and verify the credentials of the database
-app.listen(dot.PORT, async (er) => {
+const server = app.listen(dot.PORT, async (er) => {
     try {
         await con.connect();                                                    
 
@@ -57,4 +57,24 @@ app.listen(dot.PORT, async (er) => {
         console.error(`Error when connnect to the database\n${er}`.red);
     }
 });
+
+//callbacks function for close connection
+function onServer() {
+  server.close(() => {
+  console.log("\nShutdown server...".yellow);
+
+  con.end((er) => {
+      if (er) {
+        console.error(er);
+      } else {
+        console.log("Closed connection with the database".yellow);
+      }
+      process.exit(0);
+  });
+});
+}
+
+process.on("SIGINT", onServer); 
+process.on("SIGTERM", onServer);
+
 
