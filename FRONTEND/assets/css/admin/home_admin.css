@@ -1,0 +1,99 @@
+body{
+  background-color: #1B1F22;
+}
+
+.bg-purple {
+  background-color: #6f00ff !important;
+}
+
+.btn-nav {
+  background-color: #1B1F22;
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* LOGO SETTINGS */
+
+header img {
+  object-fit: cover;
+  width: 90px;
+  height: 90px;
+  border-radius: 5%;
+}
+
+.btn-logOut button{
+  padding: 8px;
+  margin: 20px;
+}
+
+.btn-nav {
+  padding: 8px;
+  margin: 20px;
+  gap: 2px;
+}
+
+footer{
+  position: fixed;
+
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/*  */
+
+@media (max-width: 767.98px) {
+  #footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  #mainNavbar {
+    width: 100%;
+  }
+
+  #mainNavbar .container {
+    justify-content: space-around !important;
+    flex-wrap: nowrap;
+    padding: 0 10px;
+  }
+
+  #mainNavbar .btn-nav {
+    flex: 1;
+    margin: 0;
+    padding: 8px 3px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-radius: 0;
+    background-color: #5200c9;
+    border: none;
+    background-color: #1B1F22;
+  }
+
+  #mainNavbar .btn-nav:hover {
+    background-color: #3e0097;
+  }
+}
+
+/*--------------------------------------*/
+
+main .container{
+  background-color: #1B1F22;
+  color: white;
+}
+
+.button-viewtask{
+  background-color: #5200c9;
+  color: #ffff;
+}
+
+.button-viewtask:hover{
+  border: 1px solid #6f00ff;
+}
+
+span{
+  color: #ffff;
+  background-color: #6f00ff;
+  border-radius: 5px;
+  padding: 2px;
+}   
