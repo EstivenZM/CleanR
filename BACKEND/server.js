@@ -37,6 +37,9 @@ app.use("/users", UsersRoutes)
 import taskRoutes from './src/routes/tasks.routes.js'
 app.use("/tasks", taskRoutes)
 
+import locationRoutes from './src/routes/locations.routes.js'
+app.use("/locations", locationRoutes)
+
 
 import alertsRoutes from './src/routes/alerts.routes.js';
 app.use ("/alerts", alertsRoutes)

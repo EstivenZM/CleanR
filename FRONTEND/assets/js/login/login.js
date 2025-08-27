@@ -40,7 +40,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }
 
         // Guardar datos del usuario en localStorage. / Save user data in localStorage.
-        function saveData() {
+        function saveUserData() {
             localStorage.setItem("fullname", data.user.fullname);
             localStorage.setItem("email", data.user.email);
             localStorage.setItem("rol", data.user.rol);
@@ -61,12 +61,15 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             switch (data.user.rol) {
                 case 'admin':
                     window.location.href = "../../../pages/admin/home_admin.html";
+                    saveUserData()
                     break;
                 case 'worker':
                     window.location.href = "../../../pages/worker/home_worker.html";
+                    saveUserData()
                     break;
                 case 'tutor':
                     window.location.href = "../../../pages/coder/new_alert.html";
+                    saveUserData()
                     break;
             }
         });
