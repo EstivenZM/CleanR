@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
+
 const bodyTable = document.getElementById("bodyTable");
-const url = "";
+const url = "http://localhost:3000";
 const add = document.getElementById("addUser");
 const content = document.getElementById("content");
 const msg = document.getElementById("msg")
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("hashchange", () => {
-    const loc = winlocation.hash;
+    const loc = location.hash;
     if (loc == "#/addUser") {
         addUser();
     } else {
@@ -34,17 +35,28 @@ bodyTable.addEventListener("click", async (e) => {
     if (e.target.textContent == "Eliminar") {
         //obtain the user id
         const id = e.target.parentNode.parentNode.id
-        const con = confirm("Estas seguro de que quieres eliminar al usuario")
-        if (con) {
-            const response = await fetch(`url`, {
+        try {
+            await fetch(`${url}/users/deleteUser`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: [{ "id": id }]
+                body: JSON.stringify({ "id_user": id })
+            });
+
+            location.reload();
+        } catch (er) {
+            Swal.fire({
+                text: "Ocurrio un error al alctualizar el cliente, intentalo de nuevo",
+                icon: "error",
+                confirmButtonText: "OK",
+                preConfirm: () => { location.reload() }
             });
         }
-    //code for when update user
+
+
+
+        //code for when update user
     } else if (e.target.textContent == "Actualizar") {
         //obtain the father element html
         const dataElementHTML = e.target.parentNode.parentNode;
@@ -56,64 +68,77 @@ bodyTable.addEventListener("click", async (e) => {
                 data[element.dataset.name] = element.textContent
             }
         };
-        
+
         Swal.fire({
             title: 'Actualizar cliente',
             html: `
-            <form id="formUser">
-                <div class="row d-block>
-                    <div class="col">
-                        <p><b>Identificador del usuario</b></p>
-                    </div>
-                    <div class="col">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Nombre" value="${data.name}" required>
-                    </div>
-                    <div class="col">
-                        <label for="email">Correo electronico</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Nombre" value="${data.email}" required>
-                    </div>
-                    <div class="col">
-                        <label for="password">Contraseña</label>
-                        <input type="text" id="password" name="password" class="form-control" placeholder="Password" value="${data.password}" required>
-                    </div>
-                    <div class="col">
-                        <label for="rol">Rol del usuario</label>
-                        <select class="form-select" id="rol" name="rol">
-                            <option selected>Seleccione...</option>
-                            <option value="tutor">Tutor</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="empleado">Empleado/a</option>
-                        </select>
-                    </div>
+            <form id="formUser" class="p-4 bg-white rounded-4">
+                <div class="mb-3">
+                    <label for="name" class="form-label fw-bold">Nombre</label>
+                    <input type="text" id="name" name="fullname" class="form-control" placeholder="Nombre" value="${data.name}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-bold">Correo electrónico</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Correo" value="${data.email}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-bold">Contraseña</label>
+                    <div class="input-group">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" value="${data.password}" required>
+                    <button class="btn btn-outline-secondary" type="button" id="btnShowPsw">Mostrar</button>
+                </div>
+                <div class="mb-3">
+                    <label for="rol" class="form-label fw-bold">Rol del usuario</label>
+                    <select id="rol" name="rol" class="form-select">
+                        <option value="tutor" selected>Tutor</option>
+                        <option value="admin">Administrador</option>
+                        <option value="worker">Empleado/a</option>
+                    </select>
                 </div>
             </form>
-        `,
+            `,
             confirmButtonText: "Actualizar",
             showCancelButton: true,
             cancelButtonText: "Cancelar",
+            didOpen: () => { // js for html in the Swal.fire
+                const btnShowPsw = document.getElementById("btnShowPsw");
+                const password = document.getElementById("password");
+
+                btnShowPsw.addEventListener("click", () => {
+                    btnShowPsw.textContent = password.textContent == "Mostrar" ? "Ocultar" : "Mostrar";
+                    password.type = (password.type === "password") ? "text" : "password"; // It exchanges the types depending on what type of input it 
+                })
+            },
             preConfirm: async () => {
                 const form = document.getElementById("formUser");
                 let dataForm = new FormData(form);
                 dataForm = Object.fromEntries(dataForm.entries());
 
                 //add id of the object
-                dataForm["id"] = data.id
-                
-                try {
-                     await fetch("url", {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': "application/json"
-                        },
-                        body: JSON.stringify(dataForm) //that dataForm contais changes updates
+                dataForm["id_user"] = data.id
+
+
+                const res = await fetch(`${url}/users/updateUser`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    body: JSON.stringify(dataForm) //that dataForm contais changes updates
+                });
+
+                const { OK } = await res.json()
+
+                if (!OK) {
+                    Swal.fire({
+                        text: "Ocurrio un error al alctualizar el cliente, intentalo de nuevo",
+                        icon: "error",
+                        confirmButtonText: "OK",
+                        preConfirm: () => { location.reload() }
                     });
-                   location.reload();
-                } catch (er) {
-                    console.error(er);
+                    location.reload();
+                } else {
+                    location.reload();
                 }
-                //update changes
-                location.reload();
             }
         });
     }
@@ -122,99 +147,177 @@ bodyTable.addEventListener("click", async (e) => {
 //FUNCTIONS
 //function for print users in the table
 async function printUsers() {
-    msg.textContent = "Cargando..."
-    const response = await fetch(`url`);
-    const { body } = await response.json();
-    msg.textContent = ""
-    body.forEach(user => {
-        bodyTable.innerHTML += `
-        <tr id="${user.id}">
-            <td data-name="id">${user.id}</td>
-            <td data-name="name" value="${user.name}">${user.name}</td>
+    try {
+        msg.textContent = "Cargando...";
+        const response = await fetch(`${url}/users/allUsers`);
+        const { body } = await response.json();
+
+        msg.textContent = ""
+        body.forEach(user => {
+
+            switch (user.rol) {
+                case "tutor":
+                    user.rol = "Tutor"
+                    break;
+
+                case "admin":
+                    user.rol = "Administrador"
+                    break;
+
+                case "worker":
+                    user.rol = "Empleado/a";
+
+                    break;
+            }
+            bodyTable.innerHTML += `
+        <tr id="${user.id_user}">
+            <td data-name="id" scope="row">${user.id_user}</td>
+            <td data-name="name" value="${user.fullname}">${user.fullname}</td>
             <td data-name="email" value="${user.email}">${user.email}</td>
             <td data-name="password" value="${user.password}">${user.password}</td>
             <td>${user.rol}</td> 
-            <td>
-                <!--to make queries faster, we are going to put the user ID in a data-link-->
-
-                <button type="button" class="btn btn-danger m-1">Eliminar</button>
-                <button type="button" class="btn btn-info m-1">Actualizar</button>
-            </td> 
-        </tr> 
-        `;
-    });
+            <td class="p-1 flex justify-evenly">
+                <button type="button" class="btn btn-danger rounded-pill">Eliminar</button>
+                <button type="button" class="btn btn-info rounded-pill">Actualizar</button>
+            </td>   
+        </tr>`;
+        });
+    } catch (er) {
+        console.error(er);
+        msg.innerHTML = "<p class='text-red-600 font-bold'>Ocurrio un error al traer los usuarios</p>"
+    }
 };
 
 //callback function for the button/event click for add new user
 async function addUser() {
     window.location.href = "#/addUser";
     content.innerHTML = `
-        <div class="container">
-            <form id="formUser">
-                <div class="row d-block ">
-                    <div class="col">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Nombre" required>
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <form id="formUser" class="p-4 bg-white rounded-4 shadow">
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Nombre</label>
+                        <input type="text" id="name" name="fullname" class="form-control" placeholder="Nombre" required>
                     </div>
-                    <div class="col">
-                        <label for="email">Correo electronico</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Nombre" required>
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-bold">Correo electrónico</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Correo" required>
                     </div>
-                    <div class="col">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                     <div class="mb-3">
+                        <label for="password" class="form-label fw-bold">Contraseña</label>
+                        <div class="input-group">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required >
+                        <button class="btn btn-outline-secondary" type="button" id="btnPassword">Mostrar</button>
                     </div>
-                    <div class="col">
-                        <label for="rol">Rol del usuario</label>
-                        <select class="form-select" id="rol" name="rol">
-                            <option selected>Seleccione...</option>
-                            <option value="tutor">Tutor</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="empleado">Empleado/a</option>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rol" class="form-label fw-bold">Rol del usuario</label>
+                        <select id="rol" name="rol" class="form-select">
+                        <option selected disabled>Seleccione...</option>
+                        <option value="tutor">Tutor</option>
+                        <option value="admin">Administrador</option>
+                        <option value="employee">Empleado/a</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success mx-1" id="send">Registrar usuario</button>
-                </div>
-                <div id="msg" class="text-danger"></div>
-            </form>
-            <div class="col">
-                <button id="ret" type="button" class="btn btn-primary m-1">Regresar</button>
+                    <div class="d-flex gap-2 justify-content-center mt-3">
+                        <button type="submit" id="send" class="btn btn-success px-4">
+                        Registrar usuario
+                        </button>
+                        <button type="button" id="ret" class="btn btn-primary px-4">
+                        Regresar
+                        </button>
+                    </div>
+                    <div class="text-center mt-3" id="confirmations">
+                        <p></p>
+                        <p></p> 
+                        <p></p>
+                    </div>
+                </form>
             </div>
         </div>
+    </section>
     `;
+    //---------------Look password
+    const lookpsw = document.getElementById("btnPassword");
+
+    lookpsw.addEventListener("click", () => {
+        const passwordInput = document.getElementById("password");
+        const type = passwordInput.type === "password" ? "text" : "password"; // It exchanges the types depending on what type of input it has
+        passwordInput.type = type;
+
+        lookpsw.textContent = type === "password" ? "Mostrar" : "Ocultar";
+    });
+    //---------------------------
 
     const ret = document.getElementById("ret");
-    const form = document.getElementById("formUser");
-    const msg = document.getElementById("msg")
+    const formUser = document.getElementById("formUser");
+    const confim = document.getElementById("confirmations");
+
+    let confimations = {
+        "email": true,
+        "rol": true
+    }
 
     ret.addEventListener("click", () => {
         location.hash = ""
         location.reload();
     });
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    //validate email and rol
+    formUser.addEventListener("change", async (e) => {
+        //validate email
+        if (e.target.id == "email") {
+            const email = e.target.value;
 
-        let data = new FormData(form);
+            if (email) {
+                const res = await fetch(`${url}/users/user?email=${email}`)
+                const { OK } = await res.json();
+                //the server response with false if the email dont exist and true if the email exist
+                if (OK) {
+                    confim.children[0].outerHTML = "<p class='text-danger'>Este email ya existe</p>";
+                    confirmations.email = false
+                } else {
+                    confirmations.children[0].outerHTML = "<p></p>";
+                    confirmations.email = true
+                }
+            }
+        }
 
-        data = Object.fromEntries(data.entries());
-
-        if (data.rol == "Seleccione...") {
-            msg.innerHTML = `<p class="text-danger">Seleccione un rol</p>`;
+        //validate rol
+        if (e.target.id == "rol") {
+            confimations.rol = true
+            confim.children[1].outerHTML = "<p></p>"
 
         } else {
+            confimations.rol = false
+        }
+    });
+
+    formUser.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        let data = new FormData(formUser);
+        data = Object.fromEntries(data.entries());
+
+        if (confimations.email && confimations.rol) {
             try {
-                const res = await fetch(`url`, {
+                await fetch(`${url}/users/insertUser`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(data)
                 });
+                formUser.reset();
+                location.href = "";
+                window.reload();
 
             } catch (er) {
-                msg.innerHTML = `<p class="text-danger">Ocurrio un error, intentelo de nuevo</p>`
+                console.log(er);
+                confim.children[1].outerHTML = "<p> class='text-danger'>Ocurrio un error, intentelo de nuevo</p>";
             }
+        } else {
+            confim.children[1].outerHTML = "<p class='text-danger'>Asegurese de haber ingresado todos los campos correctamente</p> "
         }
     });
 };

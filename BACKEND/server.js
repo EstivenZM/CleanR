@@ -27,8 +27,9 @@ app.get("/", (req, res) => {
         <h1>Endpoint General</h1>`);
 
     console.log("GET".blue , "/");
-    
 })
+
+
 
 import UsersRoutes from './src/routes/users.routes.js';
 app.use("/", UsersRoutes)
@@ -75,3 +76,5 @@ function onServer() {
 
 process.on("SIGINT", onServer); 
 process.on("SIGTERM", onServer);
+
+

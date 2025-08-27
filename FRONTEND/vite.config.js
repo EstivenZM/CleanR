@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite';
 
+//Para ver la pagina desde el celular
 export default defineConfig({
   server: {
-    host: '0.0.0.0', // 👈 permite acceso desde la red
-    port: 5173       // opcional, usa 5173 por defecto
+    host: '0.0.0.0', 
+    port: 5173       
   }
 });
