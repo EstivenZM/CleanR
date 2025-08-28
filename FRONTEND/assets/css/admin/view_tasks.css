@@ -210,3 +210,16 @@ footer {
     }
 }
 
+
+/*--styles of the form*/
+select {
+    outline: none;
+}
+
+select:checked {
+    background-color: red;
+}
+
+select option:checked {
+  background-color: lightblue;
+}

@@ -2,7 +2,6 @@ import { Router } from "express";
 import { con } from '../../server.js';
 const router = Router()
 
-
 router.get("/tasks", (req, res) => {
     con.query("select * from tasks", (er, result) => {
         if (er) {
@@ -21,30 +20,28 @@ router.get("/tasksArea", (req, res) => {
             res.status(500).send("fallo")
         }
         console.log(result);
-        
+
         res.status(200).json({ result })
     })
 })
 
 router.post("/sendTask", (req, res) => {
     const { name, id_location, status } = req.body;
-    
+
     con.query("insert into tasks(name, id_location, status) values(?, ?, ?);", [name, id_location, status], (error, result) => {
         if (error) {
             console.log("ERROR".red, error);
             res.status(500).json({
-              message:"inasdf"
+                message: "inasdf"
             });
         }
 
         res.status(200).json({
-            "OK":true,
-            "message":"User created"
+            "OK": true,
+            "message": "User created"
         });
     });
 });
-
-
 
 router.put("/tasks/:id", (req, res) => {
     const { id } = req.params
@@ -59,7 +56,6 @@ router.put("/tasks/:id", (req, res) => {
         })
 })
 
-
 router.delete("/tasks/:id", (req, res) => {
     const { id } = req.params
     con.query("DELETE FROM tasks WHERE id_task = ?", [id],
@@ -70,7 +66,35 @@ router.delete("/tasks/:id", (req, res) => {
 
             res.status(200).json({ result })
         })
-})
+});
 
+router.get("/viewTasksAdmin", (req, res) => {
+    const query = req.query;
+
+    con.query("select t.id_task, t.name as name_task, l.name, t.status, u.id_user \
+               from register_task r \
+               join users u \
+               on u.id_user = r.id_user \
+               join tasks t \
+               on t.id_task = r.id_task \
+               join locations l \
+               on t.id_location = l.id_location;",
+
+        (er, result) => {
+            if (er) {
+                console.error(er);
+                res.status(500).json({
+                    OK: false,
+                    message: "Internal server error"
+                });
+            }
+
+            res.status(200).json({
+                OK: true,
+                body: result
+            });
+        });
+    console.log("GET".blue, "/tasks/viewTasksAdmin");
+});
 
 export default router

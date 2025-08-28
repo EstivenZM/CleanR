@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
 
 import UsersRoutes from './src/routes/users.routes.js';
-app.use("/", UsersRoutes)
+app.use("/users", UsersRoutes)
 
 import taskRoutes from './src/routes/tasks.routes.js'
 app.use("/tasks", taskRoutes)

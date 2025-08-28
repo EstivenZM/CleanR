@@ -1,101 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap CSS implementation -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Pure CSS implementation -->
-        <link rel="stylesheet" href="../../assets/css/admin/view_tasks.css">
-        <!-- Pure JS implementation -->
-        <script src="../../assets/js/admin/viewTask.js" defer> </script>
-        <!-- Icon Page -->
-        <link rel="icon" href="..." type="image/x-icon">
-        <!-- Title Page -->
-        <title> CleanR | Estado de las tareas </title>
-    </head>
-    <body class="d-flex flex-column min-vh-100 bg-light">
 
-        <!-- ========== HEADER ========== -->
-        <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
-            <div class="log">
-                <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS implementation -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Pure CSS implementation -->
+    <link rel="stylesheet" href="../../assets/css/admin/view_tasks.css">
+    <!-- Icon Page -->
+    <link rel="icon" href="..." type="image/x-icon">
+    <!-- Title Page -->
+    <title> CleanR | Estado de las tareas </title>
+</head>
 
-            <div id="navbarContainerHeader">
-                <nav id="mainNavbar" class="navbar">
-                    <div class="container d-flex justify-content-around">
-                        <button id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Ver alertas </button>
-                        <button id="btnAlert" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Alertar </button>
-                        <button id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Verificar </button>
-                    </div>
-                </nav>
-            </div>
+<body class="d-flex flex-column min-vh-100 bg-light">
 
-            <div class="btn-logOut-container">
-                <button id="btnLogOut" class="btn-logOut btn btn-dark btn-sm rounded-pill" type="submit"> Cerrar sesión </button>
-            </div>
-        </header>
+    <!-- ========== HEADER ========== -->
+    <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
+        <div class="log">
+            <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
+        </div>
 
-        <!-- ========== MAIN ========== -->
-        <main class="container my-4">
-            <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3">
-                <h1 class="h4 mb-0"> Tareas registradas </h1>
-            </div>
+        <div id="navbarContainerHeader">
+            <nav id="mainNavbar" class="navbar">
+                <div class="container d-flex justify-content-around">
+                    <button id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Ver
+                        alertas </button>
+                    <button id="btnAlert" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Alertar
+                    </button>
+                    <button id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Verificar
+                    </button>
+                </div>
+            </nav>
+        </div>
 
-            <div class="card shadow-sm rounded-4">
-                <div class="card-body">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"> Buscar </span>
-                        <input class="form-control" id="searchInput" placeholder="Por ID, área, responsable, estado..." disabled>
-                    </div>
+        <div class="btn-logOut-container">
+            <button id="btnLogOut" class="btn-logOut btn btn-dark btn-sm rounded-pill" type="submit"> Cerrar sesión
+            </button>
+        </div>
+    </header>
 
-                    <!-- Tabla -->
-                    <div class="table-responsive mt-3">
-                        <table class="table table-hover align-middle" id="tasksTable">
-                        <thead class="table-light sticky-top">
-                            <tr>
-                                <th scope="col"> ID Tarea </th>
-                                <th scope="col"> Tarea </th>
-                                <th scope="col"> Trabajador(a) </th>
-                                <th scope="col"> Observación </th>
-                                <th scope="col"> Resultado </th>
-                                <th scope="col"> Fecha y Hora </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Datos de ejemplo -->
-                            <tr>
-                                <th scope="row">001</th>
-                                <td>Limpieza mostradores</td>
-                                <td>J. Pérez</td>
-                                <td> Se barrio mal acá </td>
-                                <td><span class="badge badge-status en-progreso"> En progreso </span></td>
-                                <td>27/08/2025 09:10</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">002</th>
-                                <td>Reposición de café</td>
-                                <td>M. Rojas</td>
-                                <td> Llamen a Andrea  </td>
-                                <td><span class="badge badge-status pendiente"> Pendiente </span></td>
-                                <td>27/08/2025 08:45</td>
-                            </tr>
-                        </tbody>
-                        </table>
+    <!-- ========== MAIN ========== -->
+    <main class="container my-4">
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3">
+            <h1 class="h4 mb-0">Registro de tareas en el dia </h1>
+        </div>
+
+        <div class="card shadow-sm rounded-4">
+            <div class="card-body">
+                <h4>Filtro</h4>
+                <div class="container">
+                    <div class="row flex">
+                        <div class="col">
+                            <form id="formFilter">
+                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown" id="filters">
+                                    <!--Filter of the employee-->
+                                    <input type="checkbox" class="btn-check" id="btn" name="employee" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn">Empleado/a</label>
+                
+                                    <!--Filter of the results of the task-->
+                                    <select name="tasks" class="form p-1 px-2 rounded-end bg-white border-primary text-primary" id="floatingSelectDisabled">
+                                        <option selected disabled>Resultado de la tareas</option>
+                                        <option value="exitosa">Exitosas</option>
+                                        <option value="incompleta">Incompletas</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-warning" id="clean">Limpiar</button>
+                        </div>
                     </div>
                 </div>
+                <!-- Tabla -->
+                <div class="table-responsive mt-3">
+                    <p class="text-danger"  id="msg"></p>
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th scope="col"> # </th>
+                                <th scope="col"> Tarea </th>
+                                <th scope="col"> Ubicacion </th>
+                                <th scope="col"> Estado </th>
+                                <th scope="col"> Empleada/o </th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </main>
+        </div>
+    </main>
 
-        <!-- ========== FOOTER ========== -->
-        <footer id="footer" class="py-3 rounded-top-4">
-            
-        </footer>
+    <!-- ========== FOOTER ========== -->
+    <footer id="footer" class="py-3 rounded-top-4">
 
-        <!-- Bootstrap JS implementation -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- SweetAlert2 -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    </body>
+    </footer>
+    <!--pure JS-->
+    <script src="../../assets/js/admin/viewTask.js" defer></script>
+    <!-- Bootstrap JS implementation -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
 </html>
