@@ -70,7 +70,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }).then(() => {
             switch (data.user.rol) {
                 case 'admin':
-                    window.location.href = "../../../pages/admin/home_admin.html";
+                    window.location.href = "../../../pages/admin/admin_home.html";
                     saveUserData()
                     break;
                 case 'worker':
@@ -78,7 +78,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
                     saveUserData()
                     break;
                 case 'tutor':
-                    window.location.href = "../../../pages/coder/new_alert.html";
+                    window.location.href = "../../../pages/coder/verification.html";
                     saveUserData()
                     break;
             }

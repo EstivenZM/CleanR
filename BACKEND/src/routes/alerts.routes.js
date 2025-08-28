@@ -83,6 +83,20 @@ router.post("/newAlerts", (req, res) => {
   });
 });
 
+//_---------------ALERT FOR TUTOR-----------------//
+
+// Backend usa la sesión o token para saber el usuario actual
+router.get("/alerts/user", (req, res) => {
+  const id_user = req.user.id;
+  
+  const query = "SELECT * FROM alerts WHERE id_user = ? ORDER BY created_at DESC";
+
+  con.query(query, [id_user], (err, results) => {
+    if (err) return res.status(500).json({ error: err.sqlMessage });
+    res.json(results);
+  });
+});
+
 
 
 
