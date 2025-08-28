@@ -14,20 +14,43 @@ router.get("/alerts", (req, res) => {
     })
 })
 
+//traer el nombre del lugar en vez del id
+
+router.get("/getAlerts", (req, res) => {
+  const getAlertsQuery = `
+SELECT a.*, l.name AS location_name
+FROM alerts a
+LEFT JOIN locations l ON a.id_location = l.id_location
+WHERE a.status = 'en proceso';
+
+
+`;
+
+con.query(getAlertsQuery, (err, results) => {
+  if (err) {
+    console.error("Error al obtener alertas:", err.sqlMessage);
+    return res.status(500).json({ error: "Error al obtener alertas" });
+  }
+
+  res.json(results); // cada alerta ahora tiene location_name
+});
+});
+
 // first check if there is already such an alert and then if not, create it
-router.post("/alerts", (req, res) => {
-  const { message, id_location, id_user } = req.body;
+router.post("/newAlerts", (req, res) => {
+  const { alert_type, message, id_location, id_user } = req.body;
 
   const alertCheck = `
     SELECT * FROM alerts 
     WHERE id_user = ? 
-    AND message = ? 
-    AND created_at >= NOW() - INTERVAL 5 MINUTE;
+      AND alert_type = ?
+      AND message = ? 
+      AND created_at >= NOW() - INTERVAL 5 MINUTE;
   `;
 
-  con.query(alertCheck, [id_user, message], (err, results) => {
+  con.query(alertCheck, [id_user, alert_type, message], (err, results) => {
     if (err) {
-      console.error("Error en consulta:", err);
+      console.error("Error en consulta:", err.sqlMessage);
       return res.status(500).json({ error: "Error en la base de datos" });
     }
 
@@ -38,13 +61,13 @@ router.post("/alerts", (req, res) => {
     }
 
     const alertInsert = `
-      INSERT INTO alerts (message, id_location, id_user, status, created_at)
-      VALUES (?, ?, ?, 'en proceso', NOW())
+      INSERT INTO alerts (message, id_location, id_user, status, created_at, alert_type)
+      VALUES (?, ?, ?, 'en proceso', NOW(), ?)
     `;
 
-    con.query(alertInsert, [message, id_location, id_user], (err, result) => {
+    con.query(alertInsert, [message, id_location, id_user, alert_type], (err, result) => {
       if (err) {
-        console.error("Error insertando:", err);
+        console.error("Error insertando:", err.sqlMessage);
         return res.status(500).json({ error: "Error al crear alerta" });
       }
 
@@ -53,67 +76,16 @@ router.post("/alerts", (req, res) => {
         message,
         id_location,
         id_user,
-        status: "en proceso"
+        status: "en proceso",
+        alert_type
       });
     });
   });
 });
 
-//When you click on "the ready button" it goes from in process to ready
-router.put("/alerts/:id/status", (req, res) => {
-  const id = parseInt(req.params.id);
 
-  const change = "UPDATE alerts SET status = 'listo' WHERE id_alert = ?";
 
-  con.query(change, [id], (err, result) => {
-    if (err) {
-      console.error("Error al actualizar alerta:", err);
-      return res.status(500).json({ error: "Error al actualizar alerta" });
-    }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Alerta no encontrada" });
-    }
-
-    res.json({ message: "Alerta completada" });
-  });
-});
-
-// verification alerts ready
-router.get("/alerts/verification", (req, res) => {
-  const renderAlerts = "SELECT * FROM alerts WHERE status = 'verification'";
-  con.query(renderAlerts, (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Error en la base de datos" });
-    }
-    res.json({ result });
-  });
-});
-
-// View alerts for a tutor
-router.get("/alerts/tutor/:id", (req, res) => {
-  const { id } = req.params;
-  const sql = "SELECT * FROM alerts WHERE id_user = ? ORDER BY created_at DESC";
-  con.query(sql, [id], (err, result) => {
-    if (err) {
-      console.error("Error al obtener alertas del tutor:", err);
-      return res.status(500).json({ error: "Error en la base de datos" });
-    }
-    res.json({ result });
-  });
-});
-
-// Get all locations
-router.get("/locations", (req, res) => {
-  con.query("SELECT name FROM locations", (err, result) => { 
-    if (err) {
-      console.error("Error en la consulta:", err);
-      return res.status(500).json({ error: "Error en la base de datos" });
-    }
-    res.status(200).json(result); 
-  });
-});
 
 
 export default router

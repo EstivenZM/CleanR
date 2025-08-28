@@ -1,7 +1,6 @@
-// assets/js/new_alert/new_alert.js
 document.addEventListener("DOMContentLoaded", () => {
   // -------------------------------
-  // Mover navbar arriba/abajo segun pantalla
+  // Mover navbar arriba/abajo según pantalla
   // -------------------------------
   const navbar = document.getElementById("mainNavbar");
   const footer = document.getElementById("footer");
@@ -17,76 +16,96 @@ document.addEventListener("DOMContentLoaded", () => {
         headerContainer.appendChild(navbar);
       }
     }
-<<<<<<< HEAD:FRONTEND/assets/js/new_alert/new_alert.js
   }
 
   moveNavbarBasedOnScreenWidth();
   window.addEventListener("resize", moveNavbarBasedOnScreenWidth);
 
-  // -------------------------------
-  // Manejo de formulario de alerta
-  // -------------------------------
+
+  // Cargar ubicaciones en el <select>
+
+  async function loadLocations() {
+    const select = document.getElementById("lugar");
+
+    try {
+      const res = await fetch("http://localhost:3000/locations");
+      if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+
+      const locations = await res.json();
+      select.innerHTML = '<option value="" disabled selected>Seleccionar...</option>';
+
+      locations.forEach(loc => {
+        const option = document.createElement("option");
+        option.value = loc.id_location;
+        option.textContent = loc.name;
+        select.appendChild(option);
+      });
+
+    } catch (err) {
+      console.error("Error cargando locations:", err);
+      select.innerHTML = '<option value="" disabled selected>Error al cargar ubicaciones</option>';
+    }
+  }
+
+  loadLocations();
+
+
+  // formulario de la alerta
+
   const btnSend = document.getElementById("btnSend");
 
   btnSend.addEventListener("click", async (e) => {
-    e.preventDefault(); // evitar recarga si está dentro de un form
+    e.preventDefault();
+
+    // Verificar usuario logueado
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      return Swal.fire("Atención", "Debes iniciar sesión primero", "warning");
+    }
 
     const message = document.getElementById("messageAlert").value.trim();
     const location = document.getElementById("lugar").value;
     const alertType = document.getElementById("alerta").value.trim();
-
-    // Recuperar usuario desde localStorage
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-      return Swal.fire("Error", "Debes iniciar sesión primero", "error");
-    }
-
-    // Validación
-    if (!alertType || location === "select" || !message) {
+    const userId = localStorage.getItem("id_user");
+    //
+    if (!alertType || !location || !message) {
       return Swal.fire("Atención", "Completa todos los campos", "warning");
     }
-
+    console.log(message, location, alertType);
     try {
-      const res = await fetch("http://localhost:3000/alerts", {
+
+      // Enviar alerta al backend
+
+      const res = await fetch("http://localhost:3000/alerts/newAlerts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: `${alertType} - ${message}`,
+          message: message,
           id_location: location,
-          id_user: user.id_user,
-        }),
+          id_user: userId,
+          alert_type: alertType,
+        })
+
       });
+
 
       const data = await res.json();
 
       if (!res.ok) {
-        return Swal.fire(
-          "Error",
-          data.error || "No se pudo crear la alerta",
-          "error"
-        );
+        return Swal.fire("Error", data.error || "No se pudo crear la alerta", "error");
       }
 
       Swal.fire("Éxito", "La alerta fue creada correctamente", "success");
 
-      // Reset alert fields
+      // Limpiar formulario
       document.getElementById("messageAlert").value = "";
       document.getElementById("alerta").value = "";
-      document.getElementById("lugar").value = "select";
+      document.getElementById("lugar").value = "";
+
     } catch (error) {
       console.error("Error enviando alerta:", error);
       Swal.fire("Error", "Error de conexión con el servidor", "error");
     }
   });
-=======
-    // Ejecutar al cargar la página
-    moveNavbarBasedOnScreenWidth();
-    // Ejecutar cuando cambia el tamaño de la pantalla
-    window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
-});
-
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-
->>>>>>> 357d442180687b437fd7a99bec89c252830798f8:FRONTEND/assets/js/coder/new_alert.js
 });

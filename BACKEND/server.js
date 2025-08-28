@@ -38,7 +38,7 @@ import taskRoutes from './src/routes/tasks.routes.js'
 app.use("/tasks", taskRoutes)
 
 import locationRoutes from './src/routes/locations.routes.js'
-app.use("/locations", locationRoutes)
+app.use("/", locationRoutes)
 
 
 import alertsRoutes from './src/routes/alerts.routes.js';

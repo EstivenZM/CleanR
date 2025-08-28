@@ -1,94 +1,88 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const navbar = document.getElementById('mainNavbar');
-    const footer = document.getElementById('footer');
-    const headerContainer = document.getElementById('navbarContainerHeader');
-    
-    function moveNavbarBasedOnScreenWidth() {
-        if (window.innerWidth < 768) {
-            // Mover al footer si no está allí
-            if (!footer.contains(navbar)) {
-                footer.appendChild(navbar);
-            }
-        } else {
-            // Mover de vuelta al header si no está allí
-            if (!headerContainer.contains(navbar)) {
-                headerContainer.appendChild(navbar);
-            }
-        }
+document.addEventListener("DOMContentLoaded", () => {
+  const navbar = document.getElementById("mainNavbar");
+  const footer = document.getElementById("footer");
+  const headerContainer = document.getElementById("navbarContainerHeader");
+
+  // -------------------------------
+  // Mover navbar según pantalla
+  // -------------------------------
+  function moveNavbarBasedOnScreenWidth() {
+    if (window.innerWidth < 768) {
+      if (!footer.contains(navbar)) footer.appendChild(navbar);
+    } else {
+      if (!headerContainer.contains(navbar)) headerContainer.appendChild(navbar);
     }
-    // Ejecutar al cargar la página
-    moveNavbarBasedOnScreenWidth();
-    // Ejecutar cuando cambia el tamaño de la pantalla
-    window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
-
-    let alerts = [];
-
-// Cargar alertas desde backend
-async function loadAlerts() {
-  try {
-    const res = await fetch("http://localhost:3000/alerts"); 
-    if (!res.ok) throw new Error("No se pudieron cargar las alertas");
-
-    const data = await res.json();
-    alerts = data.result; 
-    renderAlerts();
-  } catch (error) {
-    console.error("Error al cargar alertas", error);
   }
-}
+  moveNavbarBasedOnScreenWidth();
+  window.addEventListener("resize", moveNavbarBasedOnScreenWidth);
 
+  // -------------------------------
+  // Alertas en proceso
+  // -------------------------------
+  let alerts = [];
 
-// Renderizar alertas en pantalla
-function renderAlerts() {
-  const container = document.getElementById("alerts-list");
-  container.innerHTML = "";
+  // Renderizar alertas
+  function renderAlerts(alerts) {
+    const container = document.getElementById("alerts-list");
+    container.innerHTML = "";
 
-  if (alerts.length === 0) {
-    container.innerHTML = `<p class="text-white text-center">No hay alertas disponibles </p>`;
-    return;
+    if (!alerts || alerts.length === 0) {
+      container.textContent = "No hay alertas en proceso";
+      return;
+    }
+
+    alerts.forEach(alert => {
+  const card = document.createElement("div");
+  card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
+
+  card.innerHTML = `
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="tag fw-bold bg-dark px-2 py-1 rounded-pill">TUTOR</span>
+      <button class="btn btn-custom btn-dark btn-sm rounded-pill">LISTO!</button>
+    </div>
+    <p class="mt-2 fs-6 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
+    <p class="mt-2 fs-6 fw-bold"><strong>Motivo:</strong> ${alert.alert_type}</p>
+    <p class="mt-3 fs-5 fw-bold">${alert.message}</p>
+  `;
+
+  const doneButton = card.querySelector("button");
+  doneButton.addEventListener("click", () => markAlertDone(alert.id_alert));
+
+  container.appendChild(card);
+});
+
   }
 
-  alerts.forEach(alert => {
-    const card = document.createElement("div");
-    card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
+  // Marcar alerta como lista
+  async function markAlertDone(id_alert) {
+    try {
+      await fetch(`http://localhost:3000/alerts/${id_alert}/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" }
+      });
 
-    card.innerHTML = `
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="tag fw-bold bg-dark px-2 py-1 rounded-pill">TUTOR</span>
-        <button class="btn btn-custom btn-dark btn-sm rounded-pill">LISTO!</button>
-      </div>
-      <p class="mt-3 fs-5 fw-bold">${alert.message}</p>
-    `;
+      // Eliminar de la lista local y re-renderizar
+      alerts = alerts.filter(a => a.id_alert !== id_alert);
+      renderAlerts(alerts);
 
-    // Evento de botón LISTO
-    const doneButton = card.querySelector("button");
-    doneButton.addEventListener("click", () => Done(alert.id_alert));
-
-
-    container.appendChild(card);
-  });
-}
-
-// Marcar alerta como completada y redirigir a verificación
-async function Done(id) {
-  try {
-    const res = await fetch(`http://localhost:3000/alerts/${id}/status`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" }
-    });
-
-    if (!res.ok) throw new Error("No se pudo completar la alerta");
-
-    // Redirigir al trabajador a la página de verificación
-    window.location.href = "/pages/coder/verification.html?id=" + id;
-
-
-  } catch (error) {
-    console.error("Error al completar la alerta:", error);
+    } catch (err) {
+      console.error("Error al marcar alerta como lista:", err);
+    }
   }
-}
 
-// Inicializar
-loadAlerts();
+  // Cargar alertas en proceso
+  async function loadAlerts() {
+    try {
+      const res = await fetch("http://localhost:3000/alerts/alerts");   
+      const data = await res.json();
+      alerts = data.result;
+      renderAlerts(alerts);
+    } catch (err) {
+      console.error("Error al cargar alertas:", err);
+      const container = document.getElementById("alerts-list");
+      container.textContent = "Error al cargar las alertas";
+    }
+  }
 
+  loadAlerts();
 });
