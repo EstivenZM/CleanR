@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { con } from '../../server.js';
-const router = Router()
+const router = Router();
 
 
 router.get("/tasks", (req, res) => {
