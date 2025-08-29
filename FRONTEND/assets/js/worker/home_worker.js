@@ -1,3 +1,10 @@
+    let auth = sessionStorage.getItem("auth")
+    if(auth != "true"){
+        window.location.href = "../../index.html";
+    }
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('mainNavbar');
     const footer = document.getElementById('footer');
@@ -20,15 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     moveNavbarBasedOnScreenWidth();
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
-
-
-
-
-
-
-
-
-
 });
 
 
