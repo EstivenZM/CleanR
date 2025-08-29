@@ -4,36 +4,36 @@ const router = Router();
 
 // See that they are in process
 router.get("/alerts", (req, res) => {
-    con.query("select * from alerts WHERE status = 'en proceso' ", (er, result) => {
-        if (er) {
-            console.error(er);  
-            res.status(500).send("fallo")
-        }
+  con.query("select * from alerts WHERE status = 'en proceso' ", (er, result) => {
+    if (er) {
+      console.error(er);
+      res.status(500).send("fallo")
+    }
 
-        res.status(200).json({ result })
-    })
+    res.status(200).json({ result })
+  })
 })
 
 //traer el nombre del lugar en vez del id
 
 router.get("/getAlerts", (req, res) => {
   const getAlertsQuery = `
-SELECT a.*, l.name AS location_name
-FROM alerts a
-LEFT JOIN locations l ON a.id_location = l.id_location
-WHERE a.status = 'en proceso';
+  SELECT a.*, l.name AS location_name
+  FROM alerts a
+  LEFT JOIN locations l ON a.id_location = l.id_location
+  WHERE a.status = 'en proceso';
 
 
-`;
+  `;
 
-con.query(getAlertsQuery, (err, results) => {
-  if (err) {
-    console.error("Error al obtener alertas:", err.sqlMessage);
-    return res.status(500).json({ error: "Error al obtener alertas" });
-  }
+  con.query(getAlertsQuery, (err, results) => {
+    if (err) {
+      console.error("Error al obtener alertas:", err.sqlMessage);
+      return res.status(500).json({ error: "Error al obtener alertas" });
+    }
 
-  res.json(results); // cada alerta ahora tiene location_name
-});
+    res.json(results); // cada alerta ahora tiene location_name
+  });
 });
 
 // first check if there is already such an alert and then if not, create it
@@ -85,10 +85,9 @@ router.post("/newAlerts", (req, res) => {
 
 //_---------------ALERT FOR TUTOR-----------------//
 
-// Backend usa la sesión o token para saber el usuario actual
-router.get("/alerts/user", (req, res) => {
-  const id_user = req.user.id;
-  
+router.get("/alerts/user/:id_user", (req, res) => {
+  const id_user = req.params.id_user;
+
   const query = "SELECT * FROM alerts WHERE id_user = ? ORDER BY created_at DESC";
 
   con.query(query, [id_user], (err, results) => {
@@ -96,6 +95,43 @@ router.get("/alerts/user", (req, res) => {
     res.json(results);
   });
 });
+
+
+//When you click on "the ready button" it goes from in process to ready
+router.put("/alerts/:id/status", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const change = "UPDATE alerts SET status = 'listo' WHERE id_alert = ?";
+
+  con.query(change, [id], (err, result) => {
+    if (err) return res.status(500).json({ error: "Error al actualizar alerta" });
+    if (result.affectedRows === 0) return res.status(404).json({ error: "Alerta no encontrada" });
+
+    res.json({ message: "Alerta completada" });
+  });
+});
+
+
+//TRAER ALERTAS CON NOMBRE DE LUGAR EN VEZ DE ID
+// router.get("/alerts/locations", (req, res) => {
+//   const query = `
+//     SELECT 
+//       a.id_alert,
+//       a.alert_type,
+//       a.message,
+//       l.name AS location_name
+//     FROM alerts a
+//     JOIN locations l ON a.location_id = l.id_location;
+//   `;
+
+//   con.query(query, (err, result) => {
+//     if (err) {
+//       console.error("Error al obtener alertas:", err.sqlMessage); // <-- loguea el mensaje real
+//       return res.status(500).json({ error: err.sqlMessage }); // <-- mándalo también al front
+//     }
+//     res.json({ result });
+//   });
+// });
 
 
 

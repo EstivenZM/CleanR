@@ -48,15 +48,6 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             sessionStorage.setItem("auth", "true");
             
         }
-        
-            // const user = {
-            //  id_user: data.user.id_user,
-            //   fullname: data.user.fullname,
-            //   email: data.user.email,
-            //   rol: data.user.rol
-            // };
-            // localStorage.setItem("user", JSON.stringify(user));
-
 
 
         Swal.fire({

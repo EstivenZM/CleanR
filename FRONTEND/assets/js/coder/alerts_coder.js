@@ -37,26 +37,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   card.innerHTML = `
     <div class="d-flex justify-content-between align-items-center">
-      <span class="tag fw-bold bg-dark px-2 py-1 rounded-pill">MIS ALERTAS</span>
     </div>
-    <p class="mt-2 fs-6 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
-    <p class="mt-2 fs-6 fw-bold"><strong>Motivo:</strong> ${alert.alert_type}</p>
-    <p class="mt-3 fs-5 fw-bold">${alert.message}</p>
+    <p class="motivo" fs-3 fw-bold ><strong>Motivo:</strong> ${alert.alert_type}</p>
+    <p class="mt-2 fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
+    <p class="mt-1 fs-9 fw-bold">${alert.message}</p>
   `;
-
   container.appendChild(card);
 });
   }
 
-  async function loadAlerts() {
+async function loadAlerts() {
   try {
-    const res = await fetch("http://localhost:3000/alerts/user");
+    const userId = localStorage.getItem("id_user");
+    console.log("userId desde localStorage:", userId);
+
+    if (!userId) throw new Error("No hay usuario logueado");
+
+    const res = await fetch(`http://localhost:3000/alerts/alerts/user/${userId}`);
+    if (!res.ok) throw new Error("Error en la respuesta del servidor");
+
     const data = await res.json();
     renderAlerts(data);
+
   } catch (err) {
     console.error("Error al cargar alertas:", err);
+    const container = document.getElementById("alerts-list");
+    container.textContent = "Error al cargar las alertas";
   }
 }
+  loadAlerts(); 
 
 
 
@@ -64,4 +73,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if(auth != "true"){
         window.location.href = "../../index.html";
     }
+
 

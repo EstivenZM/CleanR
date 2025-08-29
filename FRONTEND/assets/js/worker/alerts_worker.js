@@ -44,12 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   card.innerHTML = `
     <div class="d-flex justify-content-between align-items-center">
-      <span class="tag fw-bold bg-dark px-2 py-1 rounded-pill">TUTOR</span>
+      <span class="tag fw-bold bg-purple px-2 py-1 rounded-pill">TUTOR</span>
       <button class="btn btn-custom btn-dark btn-sm rounded-pill">LISTO!</button>
     </div>
-    <p class="mt-2 fs-6 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
-    <p class="mt-2 fs-6 fw-bold"><strong>Motivo:</strong> ${alert.alert_type}</p>
-    <p class="mt-3 fs-5 fw-bold">${alert.message}</p>
+    <p class="motivo" fs-3 fw-bold ><strong>Motivo:</strong> ${alert.alert_type}</p>
+    <p class="mt-2 fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
+    <p class="mt-1 fs-9 fw-bold">${alert.message}</p>
   `;
 
   const doneButton = card.querySelector("button");
