@@ -49,15 +49,47 @@ formFilter.addEventListener("change", (e) => {
 async function getViewTasks() {
     const table = document.getElementById("table");
     const msg = document.getElementById("msg");
+    msg.textContent = "Cargando...";
+    try {
+        const response = await fetch(`${url}/tasks/viewTasksAdmin`);
+        const { body } = await response.json();
 
-    const response = await fetch(`${url}/tasks/viewTasksAdmin`)
-    const { body } = await response.json();
+        msg.textContent = ""
+        body.forEach(register => {
 
-    body.forEach(task => {
-        console.log(task.id_task, task.name_task, task.ubication, task.status, task.user);
-        
-    });
-}
+            switch (register.status ) {
+                case "completada":
+                    register.status = "Completada"
+                    table.innerHTML += `
+                    <tr>
+                        <td class="bg-success-subtle" scope="row">${register.id_task}</td>
+                        <td class="bg-success-subtle" scope="row">${register.name_task}</td>
+                        <td class="bg-success-subtle" scope="row">${register.ubication}</td>
+                        <td class="bg-success-subtle" scope="row">${register.status}</td>
+                        <td class="bg-success-subtle" scope="row">${register.user}</td>   
+                        </tr>`;
+                    break;
+
+                case "pendiente":
+                    register.status = "Pendiente"
+                    register.status = "Completada"
+                    table.innerHTML += `
+                    <tr>
+                        <td class="bg-danger-subtle" scope="row">${register.id_task}</td>
+                        <td class="bg-danger-subtle" scope="row">${register.name_task}</td>
+                        <td class="bg-danger-subtle" scope="row">${register.ubication}</td>
+                        <td class="bg-danger-subtle" scope="row">${register.status}</td>
+                        <td class="bg-danger-subtle" scope="row">${register.user}</td>   
+                        </tr>`;
+                    break;
+            }
+
+        });
+    } catch (er) {
+        console.error(er);
+        msg.innerHTML = "<p class='text-red-600 font-bold'>Ocurrio un error al traer los usuarios</p>"
+    }
+};
 
 
 
