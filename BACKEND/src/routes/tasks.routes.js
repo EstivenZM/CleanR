@@ -88,8 +88,8 @@ router.delete("/tasks/:id", (req, res) => {
 router.get("/viewTasksAdmin", (req, res) => {
     const query = req.query;
 
-    con.query("select t.id_task, t.name as name_task, l.name, t.status, u.id_user \
-               from register_task r \
+    con.query("select t.id_task, t.name as name_task, l.name as ubication, t.status as status, u.fullname as user \
+               from register_task r 	\
                join users u \
                on u.id_user = r.id_user \
                join tasks t \
