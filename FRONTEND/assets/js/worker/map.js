@@ -1,3 +1,4 @@
+
 const standsModal = new bootstrap.Modal(document.getElementById("standsModal"));
 const locationName = document.getElementById("locationName");
 const APP_URL = "http://localhost:3000/";
@@ -51,6 +52,8 @@ async function getTasks() {
     if (!found) {
         taskContainer.innerHTML = "<p>No hay tareas para esta ubicación</p>";
     }
+
+    formTasks.reset();
 }
 
 const formTasks = document.getElementById("formTasks");
@@ -59,17 +62,41 @@ formTasks.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const checkboxes = document.querySelectorAll(".task-checkbox:checked");
+    const observation = document.getElementById("observation").value;
+    const id_user = localStorage.getItem("id_user");
+    const registration_date = new Date().toISOString().slice(0, 19).replace("T", " ");
+    const result = "exitosa";
 
-    for (const checkbox of checkboxes) {
-        const taskId = checkbox.dataset.id;
-        await updateTaskStatus(taskId, "completada");
-
-        //checkbox.disabled = true;
+    const taskAlert = document.getElementById("taskAlert");
+    if (checkboxes.length === 0) {
+        taskAlert.innerHTML = `<div class="alert alert-danger">Por favor, selecciona al menos una tarea.</div>`;
+        return;
     }
 
-    const standsModalInstance = bootstrap.Modal.getInstance(document.getElementById("standsModal"));
-    standsModalInstance.hide();
+    for (const checkbox of checkboxes) {
+        if (!checkbox.disabled) {
+            const taskId = checkbox.dataset.id;
+            await updateTaskStatus(taskId, "completada");
+            const newRegister = {
+                id_task: taskId,
+                id_user: id_user,
+                registration_date: registration_date,
+                observation: observation,
+                result: result,
+            };
+            await newRegisterTask(newRegister);
+            console.log("Nuevo registro creado", newRegister);
+        }
+    }
 
+    // mostrar mensaje de éxito
+    taskAlert.innerHTML = `<div class="alert alert-success">Tareas registradas con exito</div>`;
+
+    // opcional: cerrar modal después de unos segundos
+    setTimeout(() => {
+        const standsModalInstance = bootstrap.Modal.getInstance(document.getElementById("standsModal"));
+        standsModalInstance.hide();
+    }, 1500);
 });
 
 async function updateTaskStatus(taskId, status) {
@@ -82,3 +109,15 @@ async function updateTaskStatus(taskId, status) {
     });
     return response.json();
 }
+
+async function newRegisterTask(newRegister) {
+    const response = await fetch(`${APP_URL}registerTasks`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRegister),
+    });
+    return response.json();
+}
+
