@@ -21,51 +21,68 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
+
+
 // Mostrar alertas propias
   function renderAlerts(alerts) {
-    const container = document.getElementById("alerts-list");
-    container.innerHTML = "";
+  const container = document.getElementById("alerts-list");
+  container.innerHTML = "";
 
-    if (!alerts || alerts.length === 0) {
-      container.textContent = "No hay ninguna alerta";
-      return;
-    }
+  if (!alerts || alerts.length === 0) {
+    container.textContent = "No hay ninguna alerta";
+    return;
+  }
 
-  alerts.forEach(alert => {
+ alerts.forEach(alert => {
   const card = document.createElement("div");
   card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
-
   card.innerHTML = `
-    <div class="motivo">
-      <strong>Motivo:</strong> ${alert.alert_type}
+    <div class="motivo d-flex justify-content-between align-items-center bg-dark rounded-3 p-2">
+      <span><strong>Motivo:</strong> ${alert.alert_type}</span>
+      <button type="button" class="btn-alerts" data-id="${alert.id_alert}" > X </button>
     </div>
-    <p class="mt-2  fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
-    <p class="mt-1  fs-9 fw-bold">${alert.message}</p>
+    <p class="mt-2 fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
+    <p class="mt-1 fs-9 fw-bold">${alert.message}</p>
   `;
+
   container.appendChild(card);
 });
-  }
+
+
+  // ELIMINAR ALERTA
+  document.querySelectorAll('.btn-alerts').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      const idAlert = e.target.getAttribute('data-id');
+      try {
+        const res = await fetch(`http://localhost:3000/alerts/alerts/${idAlert}`, {
+          method: 'DELETE',
+        });
+        if (!res.ok) throw new Error('Error al eliminar la alerta');
+        loadAlerts();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  });
+}
 
 async function loadAlerts() {
   try {
     const userId = localStorage.getItem("id_user");
-    console.log("userId desde localStorage:", userId);
-
     if (!userId) throw new Error("No hay usuario logueado");
-
     const res = await fetch(`http://localhost:3000/alerts/alerts/user/${userId}`);
-    if (!res.ok) throw new Error("Error en la respuesta del servidor");
 
+    if (!res.ok) throw new Error("Error en la respuesta");
     const data = await res.json();
     renderAlerts(data);
-
   } catch (err) {
     console.error("Error al cargar alertas:", err);
     const container = document.getElementById("alerts-list");
     container.textContent = "Error al cargar las alertas";
   }
 }
-  loadAlerts(); 
+loadAlerts();
+
 
 
 

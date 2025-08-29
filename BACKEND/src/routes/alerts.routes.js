@@ -72,15 +72,33 @@ router.post("/newAlerts", (req, res) => {
   });
 });
 
-//Alert for tutor//
+// VER ALERTAS PROPIAS
 router.get("/alerts/user/:id_user", (req, res) => {
   const id_user = req.params.id_user;
-
-  const query = "SELECT * FROM alerts WHERE id_user = ? ORDER BY created_at DESC";
-
+  const query = `
+    SELECT 
+      a.id_alert,
+      a.alert_type,
+      a.message,
+      l.name AS location_name
+    FROM alerts a
+    JOIN locations l ON a.id_location = l.id_location
+    WHERE a.id_user = ?
+    ORDER BY a.created_at DESC
+  `;
   con.query(query, [id_user], (err, results) => {
     if (err) return res.status(500).json({ error: err.sqlMessage });
     res.json(results);
+  });
+});
+
+// ELIMINAR ALERTA 
+router.delete('/alerts/:id_alert', (req, res) => {
+  const id_alert = req.params.id_alert;
+  const query = 'DELETE FROM alerts WHERE id_alert = ?';
+  con.query(query, [id_alert], (err, result) => {
+    if (err) return res.status(500).json({ error: err.sqlMessage });
+    res.json({ message: 'Alerta eliminada correctamente' });
   });
 });
 
