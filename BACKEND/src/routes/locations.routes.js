@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { con } from "../../server.js";
 
-const router = Router();
+const router = Router();  
 
 // Endpoint to get all locations
 router.get("/locations", (req, res) => {

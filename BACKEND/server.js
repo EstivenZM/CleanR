@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mysql from 'mysql2';
 import env from 'dotenv';
+import cron from 'node-cron';
 
 //Modularize the enviroments variables
 env.config();

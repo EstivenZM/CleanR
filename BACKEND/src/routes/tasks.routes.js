@@ -2,6 +2,10 @@ import { Router } from "express";
 import { con } from '../../server.js';
 const router = Router();
 
+router.put("/updateAllTasks", (req, res) => {
+    
+})
+
 router.get("/tasks", (req, res) => {
     con.query("select * from tasks", (er, result) => {
         if (er) {
@@ -37,9 +41,6 @@ router.get("/tasksArea", (req, res) => {
         res.status(200).json({ result })
     })
 })
-
-
-
 
 router.post("/sendTask", (req, res) => {
     const { name, id_location, status } = req.body;
