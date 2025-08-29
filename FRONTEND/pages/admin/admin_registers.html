@@ -45,10 +45,10 @@
                     <form id="formFilter" class="p-3 border-2">
                         <div class="btn-group" role="group" id="filters">
                             <!--Filter of the employee-->
-                            <input type="checkbox" class="btn-check" id="btn" name="employee" autocomplete="off">
+                            <input disabled type="checkbox" class="btn-check" id="btn" name="employee" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn">Empleado/a</label>
                             <!--Filter of the results of the task-->
-                            <select name="tasks" class="form p-1 px-2 rounded-end bg-dark border-primary text-primary"
+                            <select disabled name="tasks" class="form p-1 px-2 rounded-end border-primary text-primary"
                                 id="floatingSelectDisabled">
                                 <option selected disabled>Resultado de la tareas</option>
                                 <option value="exitosa">Exitosas</option>
@@ -58,13 +58,13 @@
                     </form>
                 </div>
                 <div class="col">
-                    <button class="btn btn-warning my-2" id="clean">Limpiar</button>
+                    <button disabled class="btn btn-warning my-2" id="clean">Limpiar</button>
                 </div>
             </div>
         </div>
         <!-- Table -->
         <div class="table-responsive mt-3">
-            <p class="text-danger" id="msg"></p>
+            <p class="text-light" id="msg"></p>
             <table class="table table-hover align-middle">
                 <thead class="table-light sticky-top">
                     <tr>

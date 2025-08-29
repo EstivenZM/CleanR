@@ -224,7 +224,7 @@ async function addUser() {
     <section class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
-                <form id="formUser" class="p-4 bg-white rounded-4 shadow">
+                <form id="formUser" class="p-4 bg-white rounded-4 mt-4">
                     <div class="mb-3">
                         <label for="name" class="form-label fw-bold">Nombre</label>
                         <input type="text" id="name" name="fullname" class="form-control" placeholder="Nombre" required>

@@ -75,7 +75,7 @@ footer{
 
 /*--------------------------------------*/
 
-main .container{
+main .container, select{
   background-color: #1B1F22;
   color: white;
 }
