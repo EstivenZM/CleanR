@@ -89,14 +89,14 @@ th{
     color: white !important; 
 }
 
-.editTask, .deleteTask{
+.action {
     background-color: #1B1F22;
     color: white;
     border-radius: 20px;
 }
 
 
-.editTask:hover, .deleteTask:hover{
+.action:hover {
     background-color: #5200c9;
     color: white;
 }

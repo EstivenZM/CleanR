@@ -60,9 +60,9 @@ async function showTasksInTable() {
             <td>${task.status}</td>
 
             <td class="d-flex gap-2">
-                <button class="btn editTask put-btn" data-bs-toggle="modal" data-bs-target="#editTaskModal" type="button" data-id="${task.id_task}">Editar</button>
+                <button class="btn action put-btn" data-bs-toggle="modal" data-bs-target="#editTaskModal" type="button" data-id="${task.id_task}">Editar</button>
                 
-                <button class="btn deleteTask delete-btn" type="button" data-id="${task.id_task}">Borrar</button>
+                <button class="btn action delete-btn" type="button" data-id="${task.id_task}">Borrar</button>
             </td>
         </tr>
         `

@@ -33,7 +33,6 @@ router.get("/tasksArea", (req, res) => {
             console.error(er);
             res.status(500).send("fallo")
         }
-        console.log(result);
 
         res.status(200).json({ result })
     })

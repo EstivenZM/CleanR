@@ -29,8 +29,6 @@ if (auth != "true") {
     window.location.href = "../../index.html";
 }
 
-
-
 const bodyTable = document.getElementById("bodyTable");
 const url = "http://localhost:3000";
 const add = document.getElementById("addUser");
@@ -208,8 +206,8 @@ async function printUsers() {
             <td data-name="password" value="${user.password}">${user.password}</td>
             <td>${user.rol}</td> 
             <td class="p-1 flex justify-evenly">
-                <button type="button" class="btn btn-danger rounded-pill">Eliminar</button>
-                <button type="button" class="btn btn-info rounded-pill">Actualizar</button>
+                <button type="button" class="btn  rounded-3 action">Eliminar</button>
+                <button type="button" class="btn  rounded-3 action">Actualizar</button>
             </td>   
         </tr>`;
         });
