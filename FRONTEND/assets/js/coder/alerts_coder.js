@@ -22,38 +22,46 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
 // Mostrar alertas propias
-async function loadTutorAlerts() {
-  const id_user = localStorage.getItem("id_user"); // lo recuperas del login
-  const res = await fetch(`http://localhost:3000/alerts/tutor/${id_user}`);
-  const data = await res.json();
+  function renderAlerts(alerts) {
+    const container = document.getElementById("alerts-list");
+    container.innerHTML = "";
 
-  const container = document.getElementById("tutor-alerts-list");
-  container.innerHTML = "";
+    if (!alerts || alerts.length === 0) {
+      container.textContent = "No hay ninguna alerta";
+      return;
+    }
 
-  if (data.result.length === 0) {
-    container.innerHTML = `<p class="text-center text-muted">No has creado alertas todavía.</p>`;
-    return;
+  alerts.forEach(alert => {
+  const card = document.createElement("div");
+  card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
+
+  card.innerHTML = `
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="tag fw-bold bg-dark px-2 py-1 rounded-pill">MIS ALERTAS</span>
+    </div>
+    <p class="mt-2 fs-6 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
+    <p class="mt-2 fs-6 fw-bold"><strong>Motivo:</strong> ${alert.alert_type}</p>
+    <p class="mt-3 fs-5 fw-bold">${alert.message}</p>
+  `;
+
+  container.appendChild(card);
+});
   }
 
-  data.result.forEach(alert => {
-    const card = document.createElement("div");
-    card.className = "alert-card bg-info text-white p-3 my-3 rounded-4";
-
-    card.innerHTML = `
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="fw-bold">ID: ${alert.id_alert}</span>
-        <span class="badge bg-dark">${alert.status}</span>
-      </div>
-      <p class="mt-3 fs-5">${alert.message}</p>
-      <small class="text-light">Creado: ${new Date(alert.created_at).toLocaleString()}</small>
-    `;
-
-    container.appendChild(card);
-  });
+  async function loadAlerts() {
+  try {
+    const res = await fetch("http://localhost:3000/alerts/user");
+    const data = await res.json();
+    renderAlerts(data);
+  } catch (err) {
+    console.error("Error al cargar alertas:", err);
+  }
 }
+
 
 
     let auth = sessionStorage.getItem("auth")
     if(auth != "true"){
         window.location.href = "../../index.html";
     }
+

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    alerts.forEach(alert => {
+  alerts.forEach(alert => {
   const card = document.createElement("div");
   card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
 
