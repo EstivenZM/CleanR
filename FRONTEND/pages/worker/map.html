@@ -27,7 +27,7 @@
         </div>
 
         <div class="btn-logOut">
-            <button id="btnLogOut" class="btn btn-dark btn-sm rounded-pill" type="submit"> Cerrar sesión </button>
+            <button id="btnLogOut" class="btn btn-dark btn-sm rounded-pill" type="button"> Cerrar sesión </button>
         </div>
     </header>
 
@@ -79,6 +79,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <div id="taskAlert" class="text-center"></div>
                             <form id="formTasks">
 
                                 <div class="taskContainer">
@@ -86,8 +87,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">OBSERVACIONES </label>
-                                    <textarea class="form-control" id="message-text" name="observations"></textarea>
+                                    <label for="observation" class="col-form-label">OBSERVACIONES </label>
+                                    <textarea class="form-control" id="observation" name="observation"></textarea>
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -109,6 +110,7 @@
         crossorigin="anonymous"></script>
     <script src="../../assets/js/worker/home_worker.js"></script>
     <script src="../../assets/js/worker/map.js"></script>
+    <script src="../../assets/js/middleware.js" type="module"></script>
 </body>
 
 </html>
