@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function moveNavbarBasedOnScreenWidth() {
         if (window.innerWidth < 768) {
-            // Mover al footer si no está allí
+            // Mover al footer si no está alli
             if (!footer.contains(navbar)) {
                 footer.appendChild(navbar);
             }

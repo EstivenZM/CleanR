@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
   card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
 
   card.innerHTML = `
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="motivo">
+      <strong>Motivo:</strong> ${alert.alert_type}
     </div>
-    <p class="motivo" fs-3 fw-bold ><strong>Motivo:</strong> ${alert.alert_type}</p>
-    <p class="mt-2 fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
-    <p class="mt-1 fs-9 fw-bold">${alert.message}</p>
+    <p class="mt-2  fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
+    <p class="mt-1  fs-9 fw-bold">${alert.message}</p>
   `;
   container.appendChild(card);
 });
