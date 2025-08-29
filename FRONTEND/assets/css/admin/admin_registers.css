@@ -6,10 +6,6 @@ body{
   background-color: #6f00ff !important;
 }
 
-.btn-nav {
-  background-color: #1B1F22;
-}
-
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
 /* LOGO SETTINGS */
 
@@ -26,10 +22,12 @@ header img {
 }
 
 .btn-nav {
-  padding: 8px;
+  padding: 9px;
   margin: 20px;
   gap: 2px;
+  background-color: #1B1F22;
 }
+
 
 footer{
   position: fixed;
@@ -65,49 +63,35 @@ footer{
     font-size: 0.85rem;
     white-space: nowrap;
     border-radius: 0;
-    background-color: #6f00ff;
+    background-color: #5200c9;
     border: none;
     background-color: #1B1F22;
   }
 
   #mainNavbar .btn-nav:hover {
-    background-color: #6f00ff;
+    background-color: #3e0097;
   }
 }
 
 /*--------------------------------------*/
 
-
-main > .container{   /* barra vertical */
-  overflow-x: auto;
+main .container{
+  background-color: #1B1F22;
+  color: white;
 }
 
-
-
-th{
-    background-color: #5200c9 !important;
-    color: white !important; 
-}
-
-.action {
-    background-color: #1B1F22;
-    color: white;
-    border-radius: 20px;
-}
-
-
-.action:hover {
-    background-color: #5200c9;
-    color: white;
-}
-
-.createNewTask{
+.button-viewtask{
   background-color: #5200c9;
-  color: white;
-  border-radius: 20px;
+  color: #ffff;
 }
 
-.createNewTask:hover{
-  border: 1px solid #5200c9;
-  color: white;
+.button-viewtask:hover{
+  border: 1px solid #6f00ff;
 }
+
+span{
+  color: #ffff;
+  background-color: #6f00ff;
+  border-radius: 5px;
+  padding: 2px;
+}   

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS implementation -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Pure CSS implementation -->
+    <link rel="stylesheet" href="../../assets/css/admin/admin_registers.css">
+    <!-- Icon Page -->
+    <link rel="icon" href="..." type="image/x-icon">
+    <!-- Title Page -->
+    <title> CleanR | Estado de las tareas </title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
+        <div class="log">
+            <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
+        </div>
+
+        <div id="navbarContainerHeader">
+            <nav id="mainNavbar" class="navbar">
+                <div class="container d-flex justify-content-around">
+                    <a class="btn-nav btn btn-dark btn-sm rounded-pill" href="../admin/admin_home.html">Home</a>
+                    <a id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill"
+                        href="../admin/admin_users.html">Usuarios</a>
+                    <a id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill"
+                        href="../admin/admin_tasks.html">Tareas</a>
+                    <a id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill"
+                        href="../admin/admin_registers.html">Registros</a>
+                </div>
+            </nav>
+        </div>
+        <div>
+            <button id="btnLogOut" class="btn btn-dark btn-sm rounded-pill p-2" type="submit"> Cerrar sesión </button>
+        </div>
+    </header>
+    <main class="container my-4">
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3">
+            <h1 class="h4 mb-0 text-light fw-bold">Registro de tareas en el dia </h1>
+        </div>
+        <h4 class="text-light mx-3">Filtro</h4>
+        <div class="container flex">
+            <div class="row flex">
+                <div class="col">
+                    <!-- section to filter searches -->
+                    <form id="formFilter" class="p-3 bg-light border-2">
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown" id="filters">
+                            <!--Filter of the employee-->
+                            <input type="checkbox" class="btn-check" id="btn" name="employee" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btn">Empleado/a</label>
+
+                            <!--Filter of the results of the task-->
+                            <select name="tasks" class="form p-1 px-2 rounded-end bg-white border-primary text-primary"
+                                id="floatingSelectDisabled">
+                                <option selected disabled>Resultado de la tareas</option>
+                                <option value="exitosa">Exitosas</option>
+                                <option value="incompleta">Incompletas</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="col">
+                    <button class="btn btn-warning my-2" id="clean">Limpiar</button>
+                </div>
+            </div>
+        </div>
+        <!-- Table -->
+        <div class="table-responsive mt-3">
+            <p class="text-danger" id="msg"></p>
+            <table class="table table-hover align-middle">
+                <thead class="table-light sticky-top">
+                    <tr>
+                        <th scope="col"> # </th>
+                        <th scope="col"> Tarea </th>
+                        <th scope="col"> Ubicacion </th>
+                        <th scope="col"> Estado </th>
+                        <th scope="col"> Empleada/o </th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+    <footer id="footer" class="bg-purple py-3 rounded-top-4"></footer>
+    <!--pure JS-->
+    <script src="../../assets/js/admin/admin_register.js" defer></script>
+    <!-- Bootstrap JS implementation -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

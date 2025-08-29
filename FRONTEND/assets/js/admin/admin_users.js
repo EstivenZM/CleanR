@@ -1,10 +1,33 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.getElementById('mainNavbar');
+    const footer = document.getElementById('footer');
+    const headerContainer = document.getElementById('navbarContainerHeader');
+    
+    function moveNavbarBasedOnScreenWidth() {
+        if (window.innerWidth < 768) {
+            // Mover al footer si no está allí
+            if (!footer.contains(navbar)) {
+                footer.appendChild(navbar);
+            }
+        } else {
+            // Mover de vuelta al header si no está allí
+            if (!headerContainer.contains(navbar)) {
+                headerContainer.appendChild(navbar);
+            }
+        }
+    }
+    // Ejecutar al cargar la página
+    moveNavbarBasedOnScreenWidth();
+    // Ejecutar cuando cambia el tamaño de la pantalla
+    window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
+});
+
 import Swal from 'sweetalert2';
 
 let auth = sessionStorage.getItem("auth")
 if (auth != "true") {
     window.location.href = "../../index.html";
 }
-
 
 const bodyTable = document.getElementById("bodyTable");
 const url = "http://localhost:3000";
@@ -183,8 +206,8 @@ async function printUsers() {
             <td data-name="password" value="${user.password}">${user.password}</td>
             <td>${user.rol}</td> 
             <td class="p-1 flex justify-evenly">
-                <button type="button" class="btn btn-danger rounded-pill">Eliminar</button>
-                <button type="button" class="btn btn-info rounded-pill">Actualizar</button>
+                <button type="button" class="btn  rounded-3 action">Eliminar</button>
+                <button type="button" class="btn  rounded-3 action">Actualizar</button>
             </td>   
         </tr>`;
         });
@@ -223,7 +246,7 @@ async function addUser() {
                         <option selected disabled>Seleccione...</option>
                         <option value="tutor">Tutor</option>
                         <option value="admin">Administrador</option>
-                        <option value="employee">Empleado/a</option>
+                        <option value="worker">Empleado/a</option>
                         </select>
                     </div>
                     <div class="d-flex gap-2 justify-content-center mt-3">
