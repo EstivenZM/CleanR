@@ -43,10 +43,20 @@ header img {
 .motivo {
   background-color: #1B1F22;      
   color: #ffffff;           
-  padding: 0.4rem 0.8rem;      
-  border-radius: 2rem;         
-  font-weight: bold;
-  margin-bottom: 1rem;          
+  padding: 0.5rem 1rem;         
+  border-radius: 0.9rem;         
+  font-weight: bold;    
+  
+}
+.btn-alerts {
+  background-color:#6f00ff;
+  color: white;
+  border-radius: 30%;
+  border: none;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  
 }
 
 footer{

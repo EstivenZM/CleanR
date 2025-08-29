@@ -2,6 +2,14 @@ import { Router } from "express";
 import { con } from '../../server.js';
 const router = Router();
 
+router.put("/updateAllTasks", (req, res) => {
+    con.query('update tasks set status = "pendiente"', (er, result) => {
+        if(er){
+            console.error(er);
+        }
+    })
+})
+
 router.get("/tasks", (req, res) => {
     con.query("select * from tasks", (er, result) => {
         if (er) {
@@ -10,7 +18,7 @@ router.get("/tasks", (req, res) => {
         }
 
         res.status(200).json({ result })
-    })
+    });
 })
 
 router.get("/tasksGetEdit/:id", (req, res) => {
@@ -37,9 +45,6 @@ router.get("/tasksArea", (req, res) => {
         res.status(200).json({ result })
     })
 })
-
-
-
 
 router.post("/sendTask", (req, res) => {
     const { name, id_location, status } = req.body;

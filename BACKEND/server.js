@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mysql from 'mysql2';
 import env from 'dotenv';
+import cron from 'node-cron';
 
 //Modularize the enviroments variables
 env.config();
@@ -22,14 +23,6 @@ export const con = mysql.createConnection({
   database: dot.DB
 });
 
-app.get("/", (req, res) => {
-    res.send(`
-        <h1>Endpoint General</h1>`);
-
-    console.log("GET".blue , "/");
-})
-
-
 
 import UsersRoutes from './src/routes/users.routes.js';
 app.use("/users", UsersRoutes)
@@ -44,7 +37,7 @@ app.use("/", locationRoutes)
 import alertsRoutes from './src/routes/alerts.routes.js';
 app.use ("/alerts", alertsRoutes)
 
-import registerTasksRoutes from './src/routes/registerTasks.js';
+import registerTasksRoutes from './src/routes/registerTasks.routes.js';
 app.use("/registerTasks", registerTasksRoutes);
 
 //Open local server in port 3000 and verify the credentials of the database

@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('mainNavbar');
     const footer = document.getElementById('footer');
@@ -24,16 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
 
-/* ------------------------------------------------------------------------------------------------------------- */
-    // let auth = sessionStorage.getItem("auth")
-    // if(auth != "true"){
-    //     window.location.href = "../../index.html";
-    // }
-
-
-
-/* ------------------------------------------------------------------------------------------------------------- */
-
 let tbody = document.getElementById("tbody")
 let selectContainer = document.getElementById("viewLocations")
 let buttonCreateTask = document.getElementById("createNewTask")
@@ -43,10 +31,9 @@ buttonCreateTask.addEventListener("click", async () => {
     locations.forEach(location => {
         selectContainer.innerHTML += `
         <option value="${location.id_location}">${location.name}</option>
-        `
-    })
-})
-
+        `;
+    });
+});
 
 showTasksInTable()
 async function showTasksInTable() {
@@ -67,7 +54,6 @@ async function showTasksInTable() {
         </tr>
         `
     });
-
 
     document.querySelectorAll(".delete-btn").forEach(button => {
         button.addEventListener("click", async () => {
@@ -107,10 +93,6 @@ async function showTasksInTable() {
                         <option value="${location.id_location}">${location.name}</option>`
                 })
 
-
-
-
-
                 let buttonSaveTask = document.getElementById("sendNewTaskChanged")
 
                 buttonSaveTask.addEventListener("click", async (e) => {
@@ -126,18 +108,12 @@ async function showTasksInTable() {
                     location.reload()
                 })
 
-
-
             } catch (error) {
                 console.log("ERROR", error);
             }
-
         });
     });
 }
-
-
-
 
 let sendNewTask = document.getElementById("sendNewTask")
 sendNewTask.addEventListener("click", async (e) => {
@@ -150,29 +126,9 @@ sendNewTask.addEventListener("click", async (e) => {
         id_location: viewLocations,
         status: "pendiente"
     }
-
-
     await createTask(newTask)
     location.reload()
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 async function getLocations() {
     const res = await fetch("http://localhost:3000/locations")
@@ -180,17 +136,17 @@ async function getLocations() {
     return data
 }
 
-
-
 async function getTasks() {
+    const msg = document.getElementById("msg");
     try {
+        msg.textContent = "Cargando..."
         const res = await fetch("http://localhost:3000/tasks/tasksArea")
         const data = await res.json()
+        msg.textContent = ""
         return data
     } catch (error) {
-        console.log("ERROR", error);
+        console.error("ERROR", error);
     }
-
 }
 
 async function getTasksForId(id) {
@@ -199,7 +155,7 @@ async function getTasksForId(id) {
         const data = await res.json()
         return data
     } catch (error) {
-        console.log("ERROR", error);
+        console.error("ERROR", error);
     }
 
 }
@@ -211,9 +167,7 @@ async function createTask(newTask) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newTask)
         });
-
         const data = await res.json()
-        console.log("Tarea creada", data);
 
         if (res.ok == false) {
             alert("Tarea no creada")
@@ -230,8 +184,7 @@ async function editTask(newTaskChanged, id) {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newTaskChanged)
-        })
-
+        });
         const data = await res.json()
         return data
     } catch (error) {
@@ -244,32 +197,12 @@ async function deleteTask(id) {
     try {
         const res = await fetch(`http://localhost:3000/tasks/tasks/${id}`, {
             method: "DELETE"
-        })
-
+        });
         const data = res.json()
         console.log("Tarea eliminada", data);
     } catch (error) {
         console.log("ERROR", error);
-
     }
 }
 
-
-async function editClient(id, newClientEdit) {
-    try {
-        const response = await fetch(`http://localhost:3000/clients/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newClientEdit)
-        })
-
-        const data = await response.json()
-        return data
-
-    } catch (error) {
-        console.error("ERROR", error)
-
-    }
-
-}
 

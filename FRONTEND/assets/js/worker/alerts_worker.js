@@ -1,9 +1,7 @@
-    let auth = sessionStorage.getItem("auth")
-    if(auth != "true"){
-        window.location.href = "../../index.html";
-    }
-
-
+let auth = sessionStorage.getItem("auth");
+if(auth != "true"){
+    window.location.href = "../../index.html";
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.getElementById("mainNavbar");
@@ -43,13 +41,15 @@ document.addEventListener("DOMContentLoaded", () => {
   card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
 
   card.innerHTML = `
-    <div class="d-flex justify-content-between align-items-center">
-      <span class="tag fw-bold bg-purple px-2 py-1 rounded-pill">TUTOR</span>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <span class="tag tutor-label fw-bolder text-uppercase px-3 py-1 rounded-pill">TUTOR</span>
       <button class="btn btn-custom btn-dark btn-sm rounded-pill">LISTO!</button>
     </div>
-    <p class="motivo" fs-3 fw-bold ><strong>Motivo:</strong> ${alert.alert_type}</p>
-    <p class="mt-2 fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
-    <p class="mt-1 fs-9 fw-bold">${alert.message}</p>
+    <div class="motivo">
+      <strong>Motivo:</strong> ${alert.alert_type}
+    </div>
+    <p class="mt-2  fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>
+    <p class="mt-1  fs-9 fw-bold">${alert.message}</p>
   `;
 
   const doneButton = card.querySelector("button");
@@ -57,28 +57,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   container.appendChild(card);
 });
-
   }
-
   // Marcar alerta como lista
   async function markAlertDone(id_alert) {
-    try {
-      await fetch(`http://localhost:3000/alerts/${id_alert}/status`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" }
-      });
+  try {
+    await fetch(`http://localhost:3000/alerts/${id_alert}/status`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" }
+    });
 
-      // Eliminar de la lista local y re-renderizar
-      alerts = alerts.filter(a => a.id_alert !== id_alert);
-      renderAlerts(alerts);
+    // Eliminar la alerta marcada de la lista local y re-renderizar
+    alerts = alerts.filter(a => a.id_alert !== id_alert);
+    renderAlerts(alerts);
 
-    } catch (err) {
-      console.error("Error al marcar alerta como lista:", err);
-    }
+  } catch (err) {
+    console.error("Error al marcar alerta como lista:", err);
   }
+}
 
-  // Cargar alertas en proceso
-  async function loadAlerts() {
+
+
+  async function loadAlertsLocation() {
     try {
       const res = await fetch("http://localhost:3000/alerts/alerts");   
       const data = await res.json();
@@ -91,5 +90,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  loadAlerts();
+  loadAlertsLocation();
 });
