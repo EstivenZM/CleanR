@@ -20,15 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
     moveNavbarBasedOnScreenWidth();
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
+
 });
-    
-
-const userName = localStorage.getItem("fullname");
-const msg = document.getElementById("msg");
-msg.textContent = `Bienvenido, administrador ${userName}`
-
 
     let auth = sessionStorage.getItem("auth")
     if(auth != "true"){
         window.location.href = "../../index.html";
     }
+
+
+

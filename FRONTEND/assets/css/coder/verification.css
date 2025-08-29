@@ -36,23 +36,11 @@ header img {
   width: 100px;
 }
 
-/* Botón morado personalizado */
-.btn-purple {
-  background-color: #6f00ff;
-  color: white;
-  border: none;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.btn-purple:hover {
-  background-color: #5200c9; /* un tono más oscuro */
-  color: white;
-}
-/*Footer*/
 footer{
   position: fixed;
 
 }
+
 @media (max-width: 767.98px) {
   #footer {
     position: fixed;

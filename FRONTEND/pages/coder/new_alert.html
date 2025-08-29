@@ -1,86 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap CSS implementation -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Pure CSS implementation -->
-        <link rel="stylesheet" href="../../assets/css/coder/new_alert.css">
-        <!-- Pure JS implementation -->
-        <script src="../../assets/js/coder/new_alert.js" defer> </script>
-        <!-- Icon Page -->
-        <link rel="icon" href="..." type="image/x-icon">
-        <!-- Title Page -->
-        <title> CleanR | Nueva alerta </title>
-    </head>
-    <body class="d-flex flex-column min-vh-100 bg-light">
 
-        <!-- ========== HEADER ========== -->
-        <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
-            <div class="log">
-                <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanR | Nueva Alerta</title>
 
-            <div id="navbarContainerHeader">
-                <nav id="mainNavbar" class="navbar">
-                    <div class="container d-flex justify-content-around">
-                        <button id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Ver alertas </button>
-                        <button id="btnAlert" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Alertar </button>
-                        <button id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill" type="submit"> Verificar </button>
-                    </div>
-                </nav>
-            </div>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-            <div class="btn-logOut-container">
-                <button id="btnLogOut" class="btn-logOut btn btn-dark btn-sm rounded-pill" type="submit"> Cerrar sesión </button>
-            </div>
-        </header>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/coder/new_alert.css">
 
-        <!-- ========== MAIN ========== -->
-        <main class="container text-center flex-grow-1 d-flex flex-column justify-content-center align-items-center py-4">
-            <h1 class="h5 fw-bold mb-4"> SELECCIONAR ALERTA </h1>
+    <!-- Icon -->
+    <link rel="icon" href="..." type="image/x-icon">
+</head>
 
-            <!-- Alert select -->
-            <div class="mb-3 w-75">
-                <label for="alerta" class="form-label fw-bold"> Alerta: </label>
-                <select id="alerta" name="alerta" class="form-select rounded-pill text-center">
-                    <option value="select" selected> Seleccionar... </option>
-                    <option value="coffe"> Café </option>
-                    <option value="sugar"> Azúcar </option>
-                </select>
-            </div>
+<body class="d-flex flex-column min-vh-100">
 
-            <!-- Location select -->
-            <div class="mb-3 w-75">
-                <label for="lugar" class="form-label fw-bold"> Lugar: </label>
+    <!-- ========== HEADER ========== -->
+    <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
+        <!-- Logo -->
+        <div class="log">
+            <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
+        </div>
+
+        <!-- Navbar -->
+        <div id="navbarContainerHeader">
+           <nav id="mainNavbar" class="navbar">
+                <div class="container d-flex justify-content-around">
+                    <a id="btnAlert" class="btn-nav btn btn-dark btn-sm rounded-pill" href="../coder/new_alert.html">Hacer Alertas</a>
+                    <a id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill" href="../coder/verification.html">Ver Alertas</a>
+                    <a id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill" href="../coder/alerts_coder.html">Mis Alertas</a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Log Out -->
+        <div class="btn-logOut">
+            <button id="btnLogOut" class="btn btn-dark btn-sm rounded-pill" type="button">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <!-- ========== MAIN ========== -->
+    <main class="d-flex flex-column flex-grow-1">
+
+        <!-- Title -->
+        <div class="container text-center mt-4">
+            <h3 class="fw-bold text-white">ALERTAS</h3>
+        </div>
+
+        <!-- Form -->
+        <section class="container mt-4">
+            <div class="mb-3 w-75 mx-auto">
+                <label for="lugar" class="form-label fw-bold">Lugar:</label>
                 <select id="lugar" name="lugar" class="form-select rounded-pill text-center">
-                    <option value="select" selected> Seleccionar... </option>
-                    <option value="blabs"> B-Labs </option>
-                    <option value="salon1"> Salon 1 </option>
+                    <option value="" disabled selected>Seleccionar...</option>
+     
                 </select>
             </div>
 
-            <!-- Message -->
-            <div class="mb-3 w-75">
-                <label for="messageAlert" class="form-label fw-bold"> Mensaje </label>
-                <textarea name="messageAlert" id="messageAlert" class="form-control rounded-4 bg-light" rows="3"></textarea>
+            <div class="mb-3 w-75 mx-auto">
+                <label for="alerta" class="form-label fw-bold">Motivo de alerta:</label>
+                <input type="text" id="alerta" name="alerta" class="form-control rounded-pill text-center"
+                    placeholder="Escribe motivo de tu alerta...">
             </div>
 
-            <!-- Send button -->
-            <div class="btn-send">
-                <button id="btnSend" class="btn btn-purple rounded-pill px-4" type="submit"> Enviar </button>
+            <div class="mb-3 w-75 mx-auto">
+                <label for="messageAlert" class="form-label fw-bold">Mensaje:</label>
+                <textarea id="messageAlert" name="messageAlert" class="form-control rounded-4 bg-light"
+                    rows="3"></textarea>
             </div>
-        </main>
 
-        <!-- ========== FOOTER ========== -->
-        <footer id="footer" class="bg-purple py-3 rounded-top-4">
-            
-        </footer>
+            <div class="text-center">
+                <button id="btnSend" class="btn btn-purple rounded-pill px-4" type="submit">Enviar</button>
+            </div>
+        </section>
 
-        <!-- Bootstrap JS implementation -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- SweetAlert2 -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    </body>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="footer" class="bg-purple py-3 rounded-top-4">
+    </footer>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/coder/new_alert.js"></script>
+
+</body>
+
 </html>

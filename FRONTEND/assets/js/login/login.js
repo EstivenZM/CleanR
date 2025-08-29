@@ -43,9 +43,21 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         function saveUserData() {
             localStorage.setItem("fullname", data.user.fullname);
             localStorage.setItem("email", data.user.email);
-            localStorage.setItem("rol", data.user.rol);
+            localStorage.setItem("rol", data.user.rol);+
+            localStorage.setItem("id_user", data.user.id_user);
+            sessionStorage.setItem("auth", "true");
+            
         }
         
+            // const user = {
+            //  id_user: data.user.id_user,
+            //   fullname: data.user.fullname,
+            //   email: data.user.email,
+            //   rol: data.user.rol
+            // };
+            // localStorage.setItem("user", JSON.stringify(user));
+
+
 
         Swal.fire({
             icon: "success",
@@ -60,7 +72,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }).then(() => {
             switch (data.user.rol) {
                 case 'admin':
-                    window.location.href = "../../../pages/admin/home_admin.html";
+                    window.location.href = "../../../pages/admin/admin_home.html";
                     saveUserData()
                     break;
                 case 'worker':
@@ -68,7 +80,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
                     saveUserData()
                     break;
                 case 'tutor':
-                    window.location.href = "../../../pages/coder/new_alert.html";
+                    window.location.href = "../../../pages/coder/verification.html";
                     saveUserData()
                     break;
             }

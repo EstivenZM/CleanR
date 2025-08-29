@@ -24,6 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 import Swal from 'sweetalert2';
 
+let auth = sessionStorage.getItem("auth")
+if (auth != "true") {
+    window.location.href = "../../index.html";
+}
+
+
 
 const bodyTable = document.getElementById("bodyTable");
 const url = "http://localhost:3000";

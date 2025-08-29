@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { con } from '../../server.js';
-const router = Router()
+const router = Router();
 
 router.get("/tasks", (req, res) => {
     con.query("select * from tasks", (er, result) => {
@@ -13,6 +13,20 @@ router.get("/tasks", (req, res) => {
     })
 })
 
+router.get("/tasksGetEdit/:id", (req, res) => {
+    const {id} = req.params
+
+    con.query("SELECT tasks.name, locations.name AS location_name FROM tasks JOIN locations ON tasks.id_location = locations.id_location WHERE tasks.id_task=?",[id], (er, result) => {
+        if (er) {
+            console.error(er);
+            res.status(500).send("fallo")
+        }
+
+        res.status(200).json({ result })
+    })
+})
+
+
 router.get("/tasksArea", (req, res) => {
     con.query("SELECT tasks.id_task, tasks.name, locations.name AS location_name, tasks.status FROM tasks JOIN locations ON tasks.id_location = locations.id_location;", (er, result) => {
         if (er) {
@@ -24,6 +38,9 @@ router.get("/tasksArea", (req, res) => {
         res.status(200).json({ result })
     })
 })
+
+
+
 
 router.post("/sendTask", (req, res) => {
     const { name, id_location, status } = req.body;
