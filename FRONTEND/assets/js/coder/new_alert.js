@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
   moveNavbarBasedOnScreenWidth();
   window.addEventListener("resize", moveNavbarBasedOnScreenWidth);
 

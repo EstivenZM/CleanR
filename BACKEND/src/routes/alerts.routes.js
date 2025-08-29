@@ -85,10 +85,9 @@ router.post("/newAlerts", (req, res) => {
 
 //_---------------ALERT FOR TUTOR-----------------//
 
-// Backend usa la sesión o token para saber el usuario actual
-router.get("/alerts/user", (req, res) => {
-  const id_user = req.user.id;
-  
+router.get("/alerts/user/:id_user", (req, res) => {
+  const id_user = req.params.id_user;
+
   const query = "SELECT * FROM alerts WHERE id_user = ? ORDER BY created_at DESC";
 
   con.query(query, [id_user], (err, results) => {
@@ -97,9 +96,19 @@ router.get("/alerts/user", (req, res) => {
   });
 });
 
+//When you click on "the ready button" it goes from in process to ready
+router.put("/alerts/:id/status", (req, res) => {
+  const id = parseInt(req.params.id);
 
+  const change = "UPDATE alerts SET status = 'listo' WHERE id_alert = ?";
 
+  con.query(change, [id], (err, result) => {
+    if (err) return res.status(500).json({ error: "Error al actualizar alerta" });
+    if (result.affectedRows === 0) return res.status(404).json({ error: "Alerta no encontrada" });
 
+    res.json({ message: "Alerta completada" });
+  });
+});
 
 
 export default router

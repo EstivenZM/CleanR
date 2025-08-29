@@ -46,15 +46,6 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             localStorage.setItem("rol", data.user.rol);+
             localStorage.setItem("id_user", data.user.id_user);
         }
-        
-            // const user = {
-            //  id_user: data.user.id_user,
-            //   fullname: data.user.fullname,
-            //   email: data.user.email,
-            //   rol: data.user.rol
-            // };
-            // localStorage.setItem("user", JSON.stringify(user));
-
 
 
         Swal.fire({
