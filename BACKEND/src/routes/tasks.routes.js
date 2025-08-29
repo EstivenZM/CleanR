@@ -58,6 +58,7 @@ router.put("/tasks/:id", (req, res) => {
 
 router.delete("/tasks/:id", (req, res) => {
     const { id } = req.params
+    console.log(id);
     con.query("DELETE FROM tasks WHERE id_task = ?", [id],
         (error, result) => {
             if (error) {
@@ -96,5 +97,21 @@ router.get("/viewTasksAdmin", (req, res) => {
         });
     console.log("GET".blue, "/tasks/viewTasksAdmin");
 });
+
+
+router.patch("/:id", (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    con.query("UPDATE tasks SET status = ? WHERE id_task = ?", [status, id], (error, result) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).json({ error: "Error al actualizar la tarea" });
+        }
+
+        res.status(200).json({ message: "Tarea actualizada con éxito", result });
+    });
+});
+
 
 export default router
