@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mysql from 'mysql2';
 import env from 'dotenv';
+import cron from 'node-cron';
 
 //Modularize the enviroments variables
 env.config();
@@ -21,14 +22,6 @@ export const con = mysql.createConnection({
   password: dot.USER_PASS,
   database: dot.DB
 });
-
-app.get("/", (req, res) => {
-    res.send(`
-        <h1>Endpoint General</h1>`);
-
-    console.log("GET".blue , "/");
-})
-
 
 
 import UsersRoutes from './src/routes/users.routes.js';
