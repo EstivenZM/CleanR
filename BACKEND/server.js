@@ -44,7 +44,7 @@ app.use("/", locationRoutes)
 import alertsRoutes from './src/routes/alerts.routes.js';
 app.use ("/alerts", alertsRoutes)
 
-import registerTasksRoutes from './src/routes/registerTasks.js';
+import registerTasksRoutes from './src/routes/registerTasks.routes.js';
 app.use("/registerTasks", registerTasksRoutes);
 
 //Open local server in port 3000 and verify the credentials of the database
