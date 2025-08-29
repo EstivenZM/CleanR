@@ -65,17 +65,22 @@ footer{
     font-size: 0.85rem;
     white-space: nowrap;
     border-radius: 0;
-    background-color: #5200c9;
+    background-color: #6f00ff;
     border: none;
     background-color: #1B1F22;
   }
 
   #mainNavbar .btn-nav:hover {
-    background-color: #3e0097;
+    background-color: #6f00ff;
   }
 }
 
 /*--------------------------------------*/
+
+
+main > .container{   /* barra vertical */
+  overflow-x: auto;
+}
 
 
 
@@ -94,4 +99,15 @@ th{
 .editTask:hover, .deleteTask:hover{
     background-color: #5200c9;
     color: white;
+}
+
+.createNewTask{
+  background-color: #5200c9;
+  color: white;
+  border-radius: 20px;
+}
+
+.createNewTask:hover{
+  border: 1px solid #5200c9;
+  color: white;
 }

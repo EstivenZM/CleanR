@@ -45,6 +45,8 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             localStorage.setItem("email", data.user.email);
             localStorage.setItem("rol", data.user.rol);+
             localStorage.setItem("id_user", data.user.id_user);
+            sessionStorage.setItem("auth", "true");
+            
         }
 
 

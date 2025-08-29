@@ -1,3 +1,10 @@
+    let auth = sessionStorage.getItem("auth")
+    if(auth != "true"){
+        window.location.href = "../../index.html";
+    }
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.getElementById("mainNavbar");
   const footer = document.getElementById("footer");
@@ -38,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   card.innerHTML = `
     <div class="d-flex justify-content-between align-items-center">
       <span class="tag fw-bold bg-purple px-2 py-1 rounded-pill">TUTOR</span>
-      <button class="btn btn-custom btn-purple btn-sm rounded-pill">LISTO!</button>
+      <button class="btn btn-custom btn-dark btn-sm rounded-pill">LISTO!</button>
     </div>
     <p class="motivo" fs-3 fw-bold ><strong>Motivo:</strong> ${alert.alert_type}</p>
     <p class="mt-2 fs-8 fw-bold"><strong>Lugar:</strong> ${alert.location_name}</p>

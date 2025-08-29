@@ -65,9 +65,13 @@ async function loadAlerts() {
     container.textContent = "Error al cargar las alertas";
   }
 }
+  loadAlerts(); 
 
-loadAlerts();
 
 
+    let auth = sessionStorage.getItem("auth")
+    if(auth != "true"){
+        window.location.href = "../../index.html";
+    }
 
 
