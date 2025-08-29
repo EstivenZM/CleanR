@@ -1,0 +1,13 @@
+name: Update all tasks
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restart 
+        run: |
+          curl -X GET "https://miapp.vercel.app/api"

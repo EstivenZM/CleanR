@@ -3,7 +3,11 @@ import { con } from '../../server.js';
 const router = Router();
 
 router.put("/updateAllTasks", (req, res) => {
-    
+    con.query('update tasks set status = "pendiente"', (er, result) => {
+        if(er){
+            console.error(er);
+        }
+    })
 })
 
 router.get("/tasks", (req, res) => {
@@ -14,7 +18,7 @@ router.get("/tasks", (req, res) => {
         }
 
         res.status(200).json({ result })
-    })
+    });
 })
 
 router.get("/tasksGetEdit/:id", (req, res) => {
