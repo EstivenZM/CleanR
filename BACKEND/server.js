@@ -5,9 +5,8 @@ import mysql from 'mysql2';
 import env from 'dotenv';
 import cron from 'node-cron';
 
-//Modularize the enviroments variables
+//env
 env.config();
-const dot = process.env;
 
 //Add dependencies to express
 const app = express();
@@ -16,11 +15,11 @@ app.use(express.json());
 
 //Create conection
 export const con = mysql.createConnection({
-  host: dot.HOST,
-  port:dot.PORT_DB,
-  user: dot.USER_DB,
-  password: dot.USER_PASS,
-  database: dot.DB
+  host: process.env.HOST,
+  port:process.env.PORT_DB,
+  user: process.env.USER_DB,
+  password: process.env.USER_PASS,
+  database: process.env.DB
 });
 
 
@@ -41,19 +40,15 @@ import registerTasksRoutes from './src/routes/registerTasks.routes.js';
 app.use("/registerTasks", registerTasksRoutes);
 
 //Open local server in port 3000 and verify the credentials of the database
-const server = app.listen(dot.PORT, async (er) => {
+const server = app.listen(offServer.PORT || 3000, async (er) => {
     try {
         await con.connect();                                                    
 
         console.log(`\nThe credentials of the database it's right`.green);
-
         
         if (er) {
             console.error(`\nError in the port of the localserver\n${er}`.red);
-        } else {
-            console.log(`\nLocal server started in...\nhttp://localhost:${dot.PORT}`.green);
-        }
-
+        } 
         
     } catch (er) {
         console.error(`Error when connnect to the database\n${er}`.red);
@@ -61,22 +56,22 @@ const server = app.listen(dot.PORT, async (er) => {
 });
 
 //callbacks function for close connection
-function onServer() {
-  server.close(() => {
-  console.log("\nShutdown server...".yellow);
+  function offServer() {
+    server.close(() => {
+    console.log("\nShutdown server...".yellow);
 
-  con.end((er) => {
-      if (er) {
-        console.error(er);
-      } else {
-        console.log("Closed connection with the database".yellow);
-      }
-      process.exit(0);
+    con.end((er) => {
+        if (er) {
+          console.error(er);
+        } else {
+          console.log("Closed connection with the database".yellow);
+        }
+        process.exit(0);
+    });
   });
-});
-}
+  }
 
-process.on("SIGINT", onServer); 
-process.on("SIGTERM", onServer);
+  process.on("SIGINT", offServer); 
+  process.on("SIGTERM", offServer);
 
 
