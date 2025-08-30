@@ -93,7 +93,7 @@ router.delete("/tasks/:id", (req, res) => {
 router.get("/viewTasksAdmin", (req, res) => {
     const query = req.query;
 
-    con.query("select t.id_task, t.name as name_task, l.name as ubication, t.status as status, u.fullname as user \
+    con.query("select t.id_task, t.name as name_task, l.name as ubication, t.status as status, u.fullname as user, r.registration_date \
                from register_task r 	\
                join users u \
                on u.id_user = r.id_user \
@@ -133,6 +133,21 @@ router.patch("/:id", (req, res) => {
         res.status(200).json({ message: "Tarea actualizada con éxito", result });
     });
 });
+
+router.get("/countTasks", (req, res) => {
+    con.query("select count(*) as count_tasks from tasks;", (er, result) => {
+        if(er) {
+            console.error(er);
+            res.status(500).json({
+                message:"Internal server error"
+            });
+        }
+        res.status(200).json({
+            OK:true,
+            count:result
+        });
+    })
+})
 
 
 export default router

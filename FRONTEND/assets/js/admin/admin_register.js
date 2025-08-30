@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('mainNavbar');
     const footer = document.getElementById('footer');
     const headerContainer = document.getElementById('navbarContainerHeader');
-    
+
     function moveNavbarBasedOnScreenWidth() {
         if (window.innerWidth < 768) {
             // Mover al footer si no está allí
@@ -39,8 +39,8 @@ cleanForm.addEventListener("click", () => {
 formFilter.addEventListener("change", (e) => {
     let dataFilters = new FormData(formFilter);
     dataFilters = Object.fromEntries(dataFilters.entries());
-    
-    if(dataFilters.employee) {
+
+    if (dataFilters.employee) {
         dataFilters.employee = true
     } else dataFilters.employee = false
     console.log(dataFilters);
@@ -56,10 +56,20 @@ async function getViewTasks() {
 
         msg.textContent = ""
         body.forEach(register => {
+            const fecha = new Date(register.registration_date);
 
-            switch (register.status ) {
+            // Obtener fecha (YYYY-MM-DD)
+            const date = fecha.toISOString().split("T")[0];
+
+            // Obtener hora con segundos (HH:MM:SS)
+            const hour = fecha.toTimeString().split(" ")[0];
+
+            console.log(date, hour);
+            
+            switch (register.status) {
                 case "completada":
-                    register.status = "Completada"
+                    register.status = "Completada";
+
                     table.innerHTML += `
                     <tr>
                         <td class="bg-success-subtle" scope="row">${register.id_task}</td>
@@ -67,19 +77,21 @@ async function getViewTasks() {
                         <td class="bg-success-subtle" scope="row">${register.ubication}</td>
                         <td class="bg-success-subtle" scope="row">${register.status}</td>
                         <td class="bg-success-subtle" scope="row">${register.user}</td>   
+                        <td class="bg-success-subtle" scope="row">${date} ${hour}</td>   
                         </tr>`;
                     break;
 
                 case "pendiente":
                     register.status = "Pendiente"
-                    register.status = "Completada"
+                    
                     table.innerHTML += `
                     <tr>
                         <td class="bg-danger-subtle" scope="row">${register.id_task}</td>
                         <td class="bg-danger-subtle" scope="row">${register.name_task}</td>
                         <td class="bg-danger-subtle" scope="row">${register.ubication}</td>
                         <td class="bg-danger-subtle" scope="row">${register.status}</td>
-                        <td class="bg-danger-subtle" scope="row">${register.user}</td>   
+                        <td class="bg-danger-subtle" scope="row">${register.user}</td>  
+                        <td class="bg-danger-subtle" scope="row">${date} ${hour}</td>   
                         </tr>`;
                     break;
             }
