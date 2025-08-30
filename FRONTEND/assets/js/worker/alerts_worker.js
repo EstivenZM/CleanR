@@ -58,10 +58,26 @@ document.addEventListener("DOMContentLoaded", () => {
   container.appendChild(card);
 });
   }
-  // Marcar alerta como lista
+  // Cargar alertas 
+  async function loadAlertsLocation() {
+    try {
+      const res = await fetch("http://localhost:3000/alerts/alerts");   
+      const data = await res.json();
+      alerts = data.result;
+      renderAlerts(alerts);
+    } catch (err) {
+      console.error("Error al cargar alertas:", err);
+      const container = document.getElementById("alerts-list");
+      container.textContent = "Error al cargar las alertas";
+    }
+  }
+
+  loadAlertsLocation();
+
+// Cambiar estado de alerta de "en proceso" a "listo"
   async function markAlertDone(id_alert) {
   try {
-    await fetch(`http://localhost:3000/alerts/${id_alert}/status`, {
+    await fetch(`http://localhost:3000/alerts/alerts/${id_alert}/status`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" }
     });
@@ -77,18 +93,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  async function loadAlertsLocation() {
-    try {
-      const res = await fetch("http://localhost:3000/alerts/alerts");   
-      const data = await res.json();
-      alerts = data.result;
-      renderAlerts(alerts);
-    } catch (err) {
-      console.error("Error al cargar alertas:", err);
-      const container = document.getElementById("alerts-list");
-      container.textContent = "Error al cargar las alertas";
-    }
-  }
-
-  loadAlertsLocation();
 });
