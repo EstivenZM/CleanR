@@ -119,11 +119,23 @@ router.put("/alerts/:id/status", (req, res) => {
 
 // See that they are ready
 router.get("/alerts/listo", (req, res) => {
-  con.query("SELECT * FROM alerts WHERE status = 'listo'", (err, result) => {
-    if (err) return res.status(500).json({ error: err.sqlMessage });
+  const query = `
+    SELECT 
+      a.id_alert,
+      a.alert_type,
+      a.message,
+      l.name AS location_name
+    FROM alerts a
+    JOIN locations l ON a.id_location = l.id_location
+    WHERE a.status = 'listo';  
+  `;
+  con.query(query, (err, result) => {
+    if (err) {
+      console.error("Error al obtener alertas:", err.sqlMessage);
+      return res.status(500).json({ error: err.sqlMessage });
+    }
     res.json({ result });
   });
 });
-
 
 export default router
