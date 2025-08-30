@@ -53,7 +53,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         Swal.fire({
             icon: "success",
             title: `¡Bienvenido ${data.user.fullname}!`,
-            text: `Rol: ${data.user.rol}`,
+            text: `Te deseo la mejor experiencia usando CleanR`,
             timer: 2000,
             showConfirmButton: false,
             customClass: {
