@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ----------------------------------- Welcome user--------------------------- */
-let userName = sessionStorage.getItem("userName")
+let userName = localStorage.getItem("fullname");
 let welcomeNameUser = document.getElementById("nameUser")
 welcomeNameUser.innerHTML=userName
 
@@ -40,24 +40,16 @@ welcomeNameUser.innerHTML=userName
 
 
 async function getTasks() {
-    const res = await fetch("http://localhost:3000/tasks")
+    const res = await fetch("http://localhost:3000/tasks/countTasks")
     const data = await res.json()
     return data
 }
 
 async function viewTask() {
-    let counter = 0
     let tasks = await getTasks()
-
-    tasks.result.forEach(task => {
-        if (task.status == "pendiente") {
-            counter += 1
-        }
-    });
-
+    
     let numberTask = document.getElementById("numberTask")
-    numberTask.innerHTML = counter
+    numberTask.textContent = `Actualmente hay ${tasks.count[0].count_tasks.} tareas pendientes`
 }
-
 viewTask()
 
