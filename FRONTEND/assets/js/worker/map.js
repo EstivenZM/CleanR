@@ -11,10 +11,11 @@ map.forEach((div) => {
         place = id;
 
         standsModal.show();
+        const taskAlert = document.getElementById("taskAlert");
+        taskAlert.innerHTML = "";
+
         locationName.textContent = div.textContent;
         getTasks();
-
-       
     });
 });
 async function getTasks() {
@@ -22,6 +23,8 @@ async function getTasks() {
     const data = await response.json();
     const tasks = data.result;
     const taskContainer = document.querySelector(".taskContainer");
+    const observation = document.getElementById("observation");
+    const submitBtn = document.getElementById("submitBtn");
 
     taskContainer.innerHTML = "";
     let found = false; 
@@ -50,7 +53,12 @@ async function getTasks() {
     });
 
     if (!found) {
-        taskContainer.innerHTML = "<p>No hay tareas para esta ubicación</p>";
+        taskContainer.innerHTML = "<p class='alert alert-primary text-primary'>No hay tareas para esta ubicación</p>";
+        submitBtn.disabled = true;
+        observation.disabled = true;
+    } else {
+        submitBtn.disabled = false;
+        observation.disabled = false;
     }
 
     formTasks.reset();
@@ -66,12 +74,7 @@ formTasks.addEventListener("submit", async (e) => {
     const id_user = localStorage.getItem("id_user");
     const registration_date = new Date().toISOString().slice(0, 19).replace("T", " ");
     const result = "exitosa";
-
-    const taskAlert = document.getElementById("taskAlert");
-    if (checkboxes.length === 0) {
-        taskAlert.innerHTML = `<div class="alert alert-danger">Por favor, selecciona al menos una tarea.</div>`;
-        return;
-    }
+    let flag = false;
 
     for (const checkbox of checkboxes) {
         if (!checkbox.disabled) {
@@ -85,18 +88,22 @@ formTasks.addEventListener("submit", async (e) => {
                 result: result,
             };
             await newRegisterTask(newRegister);
-            console.log("Nuevo registro creado", newRegister);
+            flag = true;
         }
     }
 
-    // mostrar mensaje de éxito
-    taskAlert.innerHTML = `<div class="alert alert-success">Tareas registradas con exito</div>`;
 
-    // opcional: cerrar modal después de unos segundos
+    if (!flag || checkboxes.length === 0) {
+        taskAlert.innerHTML = `<div class="alert alert-danger text-danger">Por favor, selecciona al menos una tarea.</div>`;
+        return;
+    }
+
+    taskAlert.innerHTML = `<div class="alert alert-success text-success">Tareas registradas con exito</div>`;
+
     setTimeout(() => {
         const standsModalInstance = bootstrap.Modal.getInstance(document.getElementById("standsModal"));
         standsModalInstance.hide();
-    }, 1500);
+    }, 2000);
 });
 
 async function updateTaskStatus(taskId, status) {
