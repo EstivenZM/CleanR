@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanR | Nueva Alerta</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/coder/new_alert.css">
+
+    <!-- Icon -->
+    <link rel="icon" href="..." type="image/x-icon">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- ========== HEADER ========== -->
+    <header class="d-flex justify-content-between align-items-center bg-purple text-white px-3 py-2 rounded-bottom-4">
+        <!-- Logo -->
+        <div class="log">
+            <img src="../../assets/img/login/logo_login.png" alt="CleanR_Logo">
+        </div>
+
+        <!-- Navbar -->
+        <div id="navbarContainerHeader">
+           <nav id="mainNavbar" class="navbar">
+                <div class="container d-flex justify-content-around">
+                    <a id="btnAlert" class="btn-nav btn btn-dark btn-sm rounded-pill" href="../coder/new_alert.html">Crear Alerta</a>
+                    <a id="btnShowAlerts" class="btn-nav btn btn-dark btn-sm rounded-pill" href="../coder/verification.html">Ver Alertas</a>
+                    <a id="btnVerify" class="btn-nav btn btn-dark btn-sm rounded-pill" href="../coder/alerts_coder.html">Mis Alertas</a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Log Out -->
+        <div class="btn-logOut">
+            <button id="btnLogOut" class="btn btn-dark btn-sm rounded-pill" type="button">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <!-- ========== MAIN ========== -->
+    <main class="d-flex flex-column flex-grow-1">
+
+        <!-- Title -->
+        <div class="container text-center mt-4">
+            <h3 class="fw-bold text-white">Alertas</h3>
+        </div>
+
+        <!-- Form -->
+        <section class="container mt-4">
+            <div class="mb-3 w-75 mx-auto">
+                <label for="lugar" class="form-label fw-bold">Lugar:</label>
+                <select id="lugar" name="lugar" class="form-select rounded-pill text-center">
+                    <option value="" disabled selected>Seleccionar...</option>
+     
+                </select>
+            </div>
+
+            <div class="mb-3 w-75 mx-auto">
+                <label for="alerta" class="form-label fw-bold">Motivo de alerta:</label>
+                <input type="text" id="alerta" name="alerta" class="form-control rounded-pill text-center"
+                    placeholder="Escribe motivo de tu alerta...">
+            </div>
+
+            <div class="mb-3 w-75 mx-auto">
+                <label for="messageAlert" class="form-label fw-bold">Mensaje:</label>
+                <textarea id="messageAlert" name="messageAlert" class="form-control rounded-4 bg-light"
+                    rows="3"></textarea>
+            </div>
+
+            <div class="text-center">
+                <button id="btnSend" class="btn btn-purple rounded-pill px-4" type="submit">Enviar</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="footer" class="bg-purple py-3 rounded-top-4">
+    </footer>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="../../assets/js/coder/new_alert.js"></script>
+    <script type="module" src="../../assets/js/middleware.js"></script>
+
+</body>
+
+</html>

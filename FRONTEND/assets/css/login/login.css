@@ -1,112 +1,102 @@
-/* Google font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+/* Estilos para el fondo de la vista. /  Styles for the background of the view. */
 
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-
-main {
-    font-family: 'Poppins', sans-serif;
+body{
+    background-color: #1B1F22;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Fondo de la pagina. / Bottom of the page. */
+/* Estilos para el logo de la vista. / Styles for the view logo. */
 
-.d-flex {
-    background-color: #1B1F22 !important;
+.log{
+    padding: 0;
+    margin: 0;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.log img{
+    width: 200px;
+    height: 200px;
+    object-fit:cover;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Logo de la pagina. / Log page. */
+/* Estilos para el contenedor principal de la vista. / Styles for the main container of the view. */
 
-.log {
-    position: absolute;
-    top: 0;
-    left: 1;
-    padding: 1px;
-    margin-top: 7%
-}
-.log img {
-    object-fit: cover;
-    width: 150px;
-    height: 150px;
-    border-radius: 5%; 
+.container{
+    width: 400px;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Titulos y subtitulos. / Titles and subtitles. */
+/* Estilos para el cuadrado del login de la vista. / Styles for the login square in the view. */
 
-h2, 
-label {
-    color: #ffffff !important;
+.card{
+    border: 5px solid #5200c9;
+    background-color: #1B1F22;
+    color: #ffff;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Carta del formulario. / Card from. */
+/* Estilos para los inputs del formulario. / Styles for form inputs. */
 
-.card {
-    background-color: #1B1F22 !important;
-    border: solid 5px #8244ff !important;
-    width: 22rem !important; 
-    border-top: 5px solid #5b13ea !important;
+input[type='email'],
+input[type='password'] {
+    border: none;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 12px;
+    width: 100%;
+    background-color: #64696d;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    margin-bottom: 30px;
 }
-
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* INPUTS */
-
-input {
-    cursor: pointer;
-    background-color: #1B1F22 !important;
-    color: #5b13ea !important;
-    opacity: 2; 
-    outline: none !important;
+input[type='email']:focus,
+input[type='password']:focus {
+    border-color: #5200c9;
+    outline: none;
 }
 ::placeholder {
-    color: #ffffff !important;
-    font-style: italic;
-}
-input[type="email"]:focus,
-input[type = "password"]:focus {
-    border: solid 2px #8244ff !important;
+    font-size: 16px;
+    color: #ffff !important;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Botón de inicio de sesión. / Sign In Button. */
+/* Estilos para el botón de la alerta. / Styles for the alert button. */
 
-.btn {
-    background-color: #5b13ea;
-    color: white;
+.icon-alert {
+    border-color: #5200c9 !important;
+    color: #5200c9 !important;
+}
+
+.btn-confirm-alert {
+    background-color: #5200c9 !important;
+    color: #ffff !important;
+}
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
+/* Estilos para el botón del formulario. / Styles for the form button. */
+
+.btn{
+    background-color: #5200c9;
+    color: #ffff;
 }
 .btn:hover {
-    background-color: #8244ff;
-}
-
-
-/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-
-/* Animación de entrada. / Entrance animation. */
-.card {
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-.log img {
-    animation: fadeIn 0.8s ease-in-out;
+    background-color: #8238f0;
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  **/
-/* Animación de entrada. / Entrance animation. */
+/* Tamaño ajustable para dispositivos moviles (Horizontal). / Adjustable size for mobile devices (Horizontal) */
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 576px) {
+@media (max-width: 991px) and (orientation: landscape) {
     .log {
-        margin-top: 0%;
+        visibility: hidden;
     }
 
-    .card {
-        margin-top: 10%;
-        width: 22rem !important; 
-        border-top: 5px solid #5b13ea !important;
+    .container{
+        width: 600px;
+        margin: 5%;
+        padding: 10%;
     }
 }
