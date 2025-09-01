@@ -69,11 +69,11 @@ document.getElementById("loginForm").addEventListener("submit", async function (
                     saveUserData()
                     break;
                 case 'worker':
-                    window.location.href = "../../../pages/worker/home_worker.html";
+                    window.location.href = "/CleanR/pages/worker/home_worker.html";
                     saveUserData()
                     break;
                 case 'tutor':
-                    window.location.href = "../../../pages/coder/verification.html";
+                    window.location.href = "/CleanR/pages/coder/verification.html";
                     saveUserData()
                     break;
             }

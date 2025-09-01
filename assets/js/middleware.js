@@ -16,7 +16,7 @@ if (btnLogOut) {
 
 let auth = sessionStorage.getItem("auth");
 if (auth != "true") {
-  window.location.href = "../../index.html";
+  window.location.href = "/CleanR/index.html";
 }
 
 const url = "https://cleanr-back.onrender.com";
