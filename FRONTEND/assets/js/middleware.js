@@ -13,3 +13,12 @@ if (btnLogOut) {
         logout();
     });
 }
+
+let auth = sessionStorage.getItem("auth");
+if (auth != "true") {
+  window.location.href = "../../index.html";
+}
+
+const url = "http://localhost:3000";
+
+export default url

@@ -22,18 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 
 });
-
-let auth = sessionStorage.getItem("auth")
-if (auth != "true") {
-    window.location.href = "../../index.html";
-}
+import url from '../middleware.js';
 
 async function loadVerifiedAlerts() {
   try {
-    const res = await fetch("http://localhost:3000/alerts/alerts/listo");
+    const res = await fetch(`${url}/alerts/alertsReady`);
     if (!res.ok) throw new Error(`Error en la respuesta: ${res.status}`);
     const data = await res.json();
-    alerts = data.result;
+    const alerts = data.result;
+  
     renderAlerts(alerts);
   } catch (err) {
     console.error("Error al cargar alertas:", err);
@@ -50,6 +47,7 @@ function renderAlerts(alerts) {
     container.textContent = "No hay alertas para mostrar";
     return;
   }
+
   alerts.forEach(alert => {
     const card = document.createElement("div");
     card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";

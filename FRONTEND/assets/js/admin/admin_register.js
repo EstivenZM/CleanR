@@ -21,87 +21,65 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
-const url = "http://localhost:3000";
+import url from '../middleware.js';
 
 
-//Clean form and filters 
-const formFilter = document.getElementById("formFilter");
-const cleanForm = document.getElementById("clean");
 
-document.addEventListener("DOMContentLoaded", getViewTasks) //for when the page load get all taks without filters
+document.addEventListener("DOMContentLoaded", getRegisters) //for when the page load get all taks without filters
 
-cleanForm.addEventListener("click", () => {
-    formFilter.reset();
-
-    getViewTasks();
-});
-
-formFilter.addEventListener("change", (e) => {
-    let dataFilters = new FormData(formFilter);
-    dataFilters = Object.fromEntries(dataFilters.entries());
-
-    if (dataFilters.employee) {
-        dataFilters.employee = true
-    } else dataFilters.employee = false
-    console.log(dataFilters);
-});
-
-async function getViewTasks() {
+async function getRegisters() {
     const table = document.getElementById("table");
     const msg = document.getElementById("msg");
     msg.textContent = "Cargando...";
     try {
-        const response = await fetch(`${url}/tasks/viewTasksAdmin`);
+        const response = await fetch(`${url}/registers/viewRegistersAdmin`);
         const { body } = await response.json();
 
         msg.textContent = ""
         body.forEach(register => {
             const fecha = new Date(register.registration_date);
 
-            // Obtener fecha (YYYY-MM-DD)
             const date = fecha.toISOString().split("T")[0];
 
-            // Obtener hora con segundos (HH:MM:SS)
             const hour = fecha.toTimeString().split(" ")[0];
+            const clas = register.status == "completada" ? "bg-success-subtle" : "bg-danger-subtle"
 
-            console.log(date, hour);
-            
-            switch (register.status) {
-                case "completada":
-                    register.status = "Completada";
-
-                    table.innerHTML += `
-                    <tr>
-                        <td class="bg-success-subtle" scope="row">${register.id_task}</td>
-                        <td class="bg-success-subtle" scope="row">${register.name_task}</td>
-                        <td class="bg-success-subtle" scope="row">${register.ubication}</td>
-                        <td class="bg-success-subtle" scope="row">${register.status}</td>
-                        <td class="bg-success-subtle" scope="row">${register.user}</td>   
-                        <td class="bg-success-subtle" scope="row">${date} ${hour}</td>   
-                        </tr>`;
-                    break;
-
-                case "pendiente":
-                    register.status = "Pendiente"
-                    
-                    table.innerHTML += `
-                    <tr>
-                        <td class="bg-danger-subtle" scope="row">${register.id_task}</td>
-                        <td class="bg-danger-subtle" scope="row">${register.name_task}</td>
-                        <td class="bg-danger-subtle" scope="row">${register.ubication}</td>
-                        <td class="bg-danger-subtle" scope="row">${register.status}</td>
-                        <td class="bg-danger-subtle" scope="row">${register.user}</td>  
-                        <td class="bg-danger-subtle" scope="row">${date} ${hour}</td>   
-                        </tr>`;
-                    break;
-            }
+            table.innerHTML += `
+            <tr>
+                <td class="${clas}" scope="row">${register.id_task}</td>
+                <td class="${clas}" scope="row">${register.name_task}</td>
+                <td class="${clas}" scope="row">${register.ubication}</td>
+                <td class="${clas}" scope="row">${register.status}</td>
+                <td class="${clas}" scope="row">${register.user}</td>   
+                <td class="${clas}" scope="row">${date} ${hour}</td>                           
+            </tr>`;
 
         });
     } catch (er) {
         console.error(er);
-        msg.innerHTML = "<p class='text-red-600 font-bold'>Ocurrio un error al traer los usuarios</p>"
+        msg.innerHTML = "<p class='text-red-600 font-bold'>Ocurrio un error al traer los registros</p>"
     }
 };
 
+//section for filters
 
+//Clean form and filters 
+// const formFilter = document.getElementById("formFilter");
+// const cleanForm = document.getElementById("clean");
+
+// cleanForm.addEventListener("click", () => {
+//     formFilter.reset();
+
+//     getViewTasks();
+// });
+
+// formFilter.addEventListener("change", (e) => {
+//     let dataFilters = new FormData(formFilter);
+//     dataFilters = Object.fromEntries(dataFilters.entries());
+
+//     if (dataFilters.employee) {
+//         dataFilters.employee = true
+//     } else dataFilters.employee = false
+//     console.log(dataFilters);
+// });
 

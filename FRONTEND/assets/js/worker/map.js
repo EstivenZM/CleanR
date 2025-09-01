@@ -1,7 +1,8 @@
-
 const standsModal = new bootstrap.Modal(document.getElementById("standsModal"));
 const locationName = document.getElementById("locationName");
-const APP_URL = "http://localhost:3000/";
+import url from '../middleware.js';
+
+
 let map = document.querySelectorAll(".map");
 let place = "";
 
@@ -19,7 +20,7 @@ map.forEach((div) => {
     });
 });
 async function getTasks() {
-    const response = await fetch(`${APP_URL}tasks/tasksArea`);
+    const response = await fetch(`${url}/tasks/tasksArea`);
     const data = await response.json();
     const tasks = data.result;
     const taskContainer = document.querySelector(".taskContainer");
@@ -107,7 +108,7 @@ formTasks.addEventListener("submit", async (e) => {
 });
 
 async function updateTaskStatus(taskId, status) {
-    const response = await fetch(`${APP_URL}tasks/${taskId}`, {
+    const response = await fetch(`${url}/tasks/updateState/${taskId}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -118,7 +119,7 @@ async function updateTaskStatus(taskId, status) {
 }
 
 async function newRegisterTask(newRegister) {
-    const response = await fetch(`${APP_URL}registerTasks`, {
+    const response = await fetch(`${url}/registers/sendRegister`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

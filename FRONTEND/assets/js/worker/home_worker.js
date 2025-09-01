@@ -1,10 +1,3 @@
-    // let auth = sessionStorage.getItem("auth")
-    // if(auth != "true"){
-    //     window.location.href = "../../index.html";
-    // }
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('mainNavbar');
     const footer = document.getElementById('footer');
@@ -29,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
 
+import url from '../middleware.js';
 
 /* ----------------------------------- Welcome user--------------------------- */
 let userName = localStorage.getItem("fullname");
@@ -37,19 +31,16 @@ welcomeNameUser.innerHTML=userName
 
 
 /*------------------------------------See how many pending tasks--------------------------------*/
-
-
 async function getTasks() {
-    const res = await fetch("http://localhost:3000/tasks/countTasks")
-    const data = await res.json()
-    return data
+    const res = await fetch(`${url}/tasks/countTasks`)
+    const {count} = await res.json()
+   return count
 }
 
 async function viewTask() {
-    let tasks = await getTasks()
-    
+   
     let numberTask = document.getElementById("numberTask")
-    numberTask.textContent = `Actualmente hay ${tasks.count[0].count_tasks.} tareas pendientes`
+    numberTask.textContent = `Actualmente hay ${await getTasks()} tareas pendientes`
 }
 viewTask()
 

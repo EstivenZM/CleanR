@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
-
+import url from '../middleware.js';
 import Swal from 'sweetalert2';
 
 let auth = sessionStorage.getItem("auth")
@@ -30,7 +30,6 @@ if (auth != "true") {
 }
 
 const bodyTable = document.getElementById("bodyTable");
-const url = "http://localhost:3000";
 const add = document.getElementById("addUser");
 const content = document.getElementById("content");
 const msg = document.getElementById("msg")

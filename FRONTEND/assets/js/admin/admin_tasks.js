@@ -21,10 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar cuando cambia el tamaño de la pantalla
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
+import url from '../middleware.js';
 
 let tbody = document.getElementById("tbody")
 let selectContainer = document.getElementById("viewLocations")
 let buttonCreateTask = document.getElementById("createNewTask")
+
 
 buttonCreateTask.addEventListener("click", async () => {
     let locations = await getLocations()
@@ -87,7 +89,7 @@ async function showTasksInTable() {
 
 
                 let locations = await getLocations()
-                console.log(locations);
+        
                 locations.forEach(location => {
                     selectEditTask.innerHTML += `
                         <option value="${location.id_location}">${location.name}</option>`
@@ -131,7 +133,7 @@ sendNewTask.addEventListener("click", async (e) => {
 })
 
 async function getLocations() {
-    const res = await fetch("http://localhost:3000/locations")
+    const res = await fetch(`${url}/locations/viewLocations`)
     const data = await res.json()
     return data
 }
@@ -140,18 +142,19 @@ async function getTasks() {
     const msg = document.getElementById("msg");
     try {
         msg.textContent = "Cargando..."
-        const res = await fetch("http://localhost:3000/tasks/tasksArea")
+        const res = await fetch(`${url}/tasks/tasksArea`)
         const data = await res.json()
         msg.textContent = ""
         return data
     } catch (error) {
         console.error("ERROR", error);
+        msg.textContent = "Ocurrio un error"    
     }
 }
 
 async function getTasksForId(id) {
     try {
-        const res = await fetch(`http://localhost:3000/tasks/tasksGetEdit/${id}`)
+        const res = await fetch(`${url}/tasks/tasksGetEdit/${id}`)
         const data = await res.json()
         return data
     } catch (error) {
@@ -162,7 +165,7 @@ async function getTasksForId(id) {
 
 async function createTask(newTask) {
     try {
-        const res = await fetch(`http://localhost:3000/tasks/sendTask`, {
+        const res = await fetch(`${url}/tasks/registerTask`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newTask)
@@ -180,7 +183,7 @@ async function createTask(newTask) {
 
 async function editTask(newTaskChanged, id) {
     try {
-        const res = await fetch(`http://localhost:3000/tasks/tasks/${id}`, {
+        const res = await fetch(`${url}/tasks/updateTask/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newTaskChanged)
@@ -192,10 +195,9 @@ async function editTask(newTaskChanged, id) {
     }
 }
 
-
 async function deleteTask(id) {
     try {
-        const res = await fetch(`http://localhost:3000/tasks/tasks/${id}`, {
+        const res = await fetch(`${url}/tasks/deleteTask/${id}`, {
             method: "DELETE"
         });
         const data = res.json()

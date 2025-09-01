@@ -1,9 +1,11 @@
+const url = "http://localhost:3000";
+
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-
+    
     if (!email || !password) {
         Swal.fire({
             icon: "warning",
@@ -18,7 +20,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     }
 
     try {
-        const res = await fetch("http://localhost:3000/users/login", {
+        const res = await fetch(`${url}/users/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })

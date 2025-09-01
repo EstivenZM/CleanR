@@ -1,30 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navbar = document.getElementById('mainNavbar');
-    const footer = document.getElementById('footer');
-    const headerContainer = document.getElementById('navbarContainerHeader');
-    
-    function moveNavbarBasedOnScreenWidth() {
-        if (window.innerWidth < 768) {
-            // Mover al footer si no está allí
-            if (!footer.contains(navbar)) {
-                footer.appendChild(navbar);
-            }
-        } else {
-            // Mover de vuelta al header si no está allí
-            if (!headerContainer.contains(navbar)) {
-                headerContainer.appendChild(navbar);
-            }
-        }
+  const navbar = document.getElementById('mainNavbar');
+  const footer = document.getElementById('footer');
+  const headerContainer = document.getElementById('navbarContainerHeader');
+
+  function moveNavbarBasedOnScreenWidth() {
+    if (window.innerWidth < 768) {
+      // Mover al footer si no está allí
+      if (!footer.contains(navbar)) {
+        footer.appendChild(navbar);
+      }
+    } else {
+      // Mover de vuelta al header si no está allí
+      if (!headerContainer.contains(navbar)) {
+        headerContainer.appendChild(navbar);
+      }
     }
-    // Ejecutar al cargar la página
-    moveNavbarBasedOnScreenWidth();
-    // Ejecutar cuando cambia el tamaño de la pantalla
-    window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
+  }
+  // Ejecutar al cargar la página
+  moveNavbarBasedOnScreenWidth();
+  // Ejecutar cuando cambia el tamaño de la pantalla
+  window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
 
+import url from '../middleware.js'
 
 // Mostrar alertas propias
-  function renderAlerts(alerts) {
+function renderAlerts(alerts) {
   const container = document.getElementById("alerts-list");
   container.innerHTML = "";
 
@@ -33,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
- alerts.forEach(alert => {
-  const card = document.createElement("div");
-  card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
-  card.innerHTML = `
+  alerts.forEach(alert => {
+    const card = document.createElement("div");
+    card.className = "alert-card bg-purple text-white p-3 my-3 rounded-4";
+    card.innerHTML = `
     <div class="motivo d-flex justify-content-between align-items-center bg-dark rounded-3 p-2">
       <span><strong>Motivo:</strong> ${alert.alert_type}</span>
       <button type="button" class="btn-alerts" data-id="${alert.id_alert}" > X </button>
@@ -45,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     <p class="mt-1 fs-9 fw-bold">${alert.message}</p>
   `;
 
-  container.appendChild(card);
-});
+    container.appendChild(card);
+  });
 
 
   // ELIMINAR ALERTA
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', async (e) => {
       const idAlert = e.target.getAttribute('data-id');
       try {
-        const res = await fetch(`http://localhost:3000/alerts/alerts/${idAlert}`, {
+        const res = await fetch(`${url}/alerts/alerts/${idAlert}`, {
           method: 'DELETE',
         });
         if (!res.ok) throw new Error('Error al eliminar la alerta');
@@ -68,9 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadAlerts() {
   try {
-    const userId = localStorage.getItem("id_user");
-    if (!userId) throw new Error("No hay usuario logueado");
-    const res = await fetch(`http://localhost:3000/alerts/alerts/user/${userId}`);
+    const userId = parseInt(localStorage.getItem("id_user"))
+    const res = await fetch(`${url}/alerts/user/${userId}`);
 
     if (!res.ok) throw new Error("Error en la respuesta");
     const data = await res.json();
@@ -83,12 +83,5 @@ async function loadAlerts() {
 }
 loadAlerts();
 
-
-
-
-    let auth = sessionStorage.getItem("auth")
-    if(auth != "true"){
-        window.location.href = "../../index.html";
-    }
 
 
