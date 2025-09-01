@@ -19,6 +19,6 @@ if (auth != "true") {
   window.location.href = "../../index.html";
 }
 
-const url = "http://localhost:3000";
+const url = "https://cleanr-back.onrender.com";
 
 export default url

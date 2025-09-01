@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://cleanr-back.onrender.com";
 
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
     e.preventDefault();

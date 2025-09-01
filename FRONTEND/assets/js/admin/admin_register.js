@@ -43,7 +43,17 @@ async function getRegisters() {
 
             const hour = fecha.toTimeString().split(" ")[0];
             const clas = register.status == "completada" ? "bg-success-subtle" : "bg-danger-subtle"
+            let register_date = `${date} ${hour}`
+            
 
+            if(register.user == null) {
+                
+                register.user = "NA";
+                register_date = "NA"
+        
+            }
+        
+            
             table.innerHTML += `
             <tr>
                 <td class="${clas}" scope="row">${register.id_task}</td>
@@ -51,7 +61,7 @@ async function getRegisters() {
                 <td class="${clas}" scope="row">${register.ubication}</td>
                 <td class="${clas}" scope="row">${register.status}</td>
                 <td class="${clas}" scope="row">${register.user}</td>   
-                <td class="${clas}" scope="row">${date} ${hour}</td>                           
+                <td class="${clas}" scope="row">${register_date}</td>                           
             </tr>`;
 
         });
