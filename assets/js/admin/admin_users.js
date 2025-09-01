@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', moveNavbarBasedOnScreenWidth);
 });
 import url from '../middleware.js';
-import Swal from 'sweetalert2';
 
 
 const bodyTable = document.getElementById("bodyTable");
