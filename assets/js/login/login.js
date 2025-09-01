@@ -65,7 +65,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }).then(() => {
             switch (data.user.rol) {
                 case 'admin':
-                    window.location.href = "../../../pages/admin/admin_home.html";
+                    window.location.href = "/CleanR/pages/admin/admin_home.html";
                     saveUserData()
                     break;
                 case 'worker':
